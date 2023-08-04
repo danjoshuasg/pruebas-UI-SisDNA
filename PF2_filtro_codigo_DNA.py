@@ -51,7 +51,7 @@ try:
     input_ID_DNA.clear()
     input_ID_DNA.send_keys("01001")
 
-    elemento_click = wait.until(EC.presence_of_element_located((By.ID, 'formularioPrincipal1:tablaDefensoria:j_idt184'))) # Observación: Con hacerle click debería aparecer pantalla
+    elemento_click = wait.until(EC.presence_of_element_located((By.ID, 'j_idt22:j_idt24'))) # Observación: Con hacerle click al Logo del SisDNA sale el cuadro
     MoverClick(elemento_click)
 
     # Hacer click e
