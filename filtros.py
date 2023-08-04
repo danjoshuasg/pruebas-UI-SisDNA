@@ -13,7 +13,7 @@ from selenium.common.exceptions import ElementNotInteractableException
 import time
 
 
-def Buscar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrito=None, ubigeo_file='ubigeo.json'):
+def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrito=None, ubigeo_file='ubigeo.json'):
     with open(ubigeo_file, 'r', encoding='utf-8') as json_file:
         diccionario_ubigeo = json.load(json_file)
 
@@ -138,7 +138,7 @@ def click_vacio(driver, elemento_vacio ='j_idt22:j_idt24'):
     prueba_funcional.MoverClick(driver,elemento_vacio)
     
 
-def Buscar_codigo(driver, codigo_DNA="'01001"):
+def Filtrar_codigo(driver, codigo_DNA="'01001"):
     id_frm_Codigo = ["frmBuscar:txtCodigo","frmBuscar:busCodigo"]
     input_ID_DNA = probar_ids(driver,id_frm_Codigo)
     if input_ID_DNA is None:
@@ -151,7 +151,7 @@ def Buscar_codigo(driver, codigo_DNA="'01001"):
 
 ## Filtros específicos ##
 
-def Buscar_estado_DNA(driver, wait, estado="ACREDITADA"): #¿Solo está en el submódulo de la DNA?
+def Filtrar_estado_DNA(driver, wait, estado="ACREDITADA"): #¿Solo está en el submódulo de la DNA?
     id_frm_estado = "frmBuscar:txtEstadoBus"
     diccionario_estados ={"NO ACREDITADA":"frmBuscar:txtEstadoBus_1", "NO_OPERATIVA":"frmBuscar:txtEstadoBus_2", "ACREDITADA":"frmBuscar:txtEstadoBus_3"}
     if estado not in diccionario_estados:
@@ -164,9 +164,13 @@ def Buscar_estado_DNA(driver, wait, estado="ACREDITADA"): #¿Solo está en el su
         prueba_funcional.MoverClick(driver,estado)
         print("Filtrado del estado de la DNA exitoso")
 
-def Buscar_estado_acreditacion(driver, wait, estado="ACREDITADA"): #¿Solo está en el submódulo de la DNA?
+def Filtrar_estado_acreditacion(driver, wait, estado="ACREDITADA"): #¿Solo está en el submódulo de la DNA?
     id_frm_estado = "frmBuscar:txtEstadoBus"
-    diccionario_estados ={"EVALUACIÓN DE EXPEDIENTE":"frmBuscar:txtEstadoBus_1", "OBSERVADA":"frmBuscar:txtEstadoBus_2", "ACREDITADA":"frmBuscar:txtEstadoBus_3"}
+    diccionario_estados ={"EVALUACIÓN DE EXPEDIENTE":"frmBuscar:txtEstadoBus_1", 
+                          "OBSERVADA":"frmBuscar:txtEstadoBus_2", 
+                          "EVALUACIÓN DE SUBSANACIÓN":"frmBuscar:txtEstadoBus_3", 
+                          "ACREDITADA":"frmBuscar:txtEstadoBus_4", 
+                          "DENEGADA":"frmBuscar:txtEstadoBus_5"}
     if estado not in diccionario_estados:
         print("El estado de la DNA no es válido")
     else: 
@@ -175,19 +179,38 @@ def Buscar_estado_acreditacion(driver, wait, estado="ACREDITADA"): #¿Solo está
         prueba_funcional.MoverClick(driver,filtro_estado)
         estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
         prueba_funcional.MoverClick(driver,estado)
-        print("Filtrado del estado de la DNA exitoso")
+        print("Filtrado del estado de la acreditación exitoso")
 
 
+def Filtrar_vencer_acreditacion(driver, wait, estado_vencer="TODAS"):
+    id_frm_vencer="frmBuscar:selFiltroAcre_label"
+    diccionario_vencer={"Por Vencer":"frmBuscar:selFiltroAcre_0","TODAS":"frmBuscar:selFiltroAcre_1"}
+    if estado_vencer not in diccionario_vencer:
+        print("El estado de la DNA no es válido")
+    else: 
+        id_estado=diccionario_vencer[estado_vencer]
+        filtro_estado = driver.find_element(By.ID, id_frm_vencer)
+        prueba_funcional.MoverClick(driver,filtro_estado)
+        estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
+        prueba_funcional.MoverClick(driver,estado)
+        print("Filtrado del estado a vencer de la acreditación exitoso")
+
+
+def Filtrar_anio_capacitacion(driver,wait, year="2023"):
+    id_frm_year="frmBuscar:txtAnio_input"
+        
+    
 
 def Probar():
     driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 5)
     prueba_funcional.Ingresar_Sistema(driver=driver,wait=wait, user_name="72623744", password="123456$$dan") 
-    prueba_funcional.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre="dna",submodulo_nombre="dna")
-    #Buscar_ubigeo(driver=driver,wait=wait, departamento="AREQUIPA", provincia="AREQUIPA", distrito="QUEQUEÑA")
-    #Buscar_codigo(driver=driver, codigo_DNA="20011")
-    #Buscar_estado_DNA(driver,wait,estado="NO ACREDITADA")
-
+    prueba_funcional.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre="dna",submodulo_nombre="acreditacion")
+    Filtrar_ubigeo(driver=driver,wait=wait, departamento="AREQUIPA", provincia="AREQUIPA", distrito="QUEQUEÑA")
+    Filtrar_codigo(driver=driver, codigo_DNA="20011")
+    Filtrar_estado_DNA(driver,wait,estado="NO ACREDITADA")
+    Filtrar_estado_acreditacion(driver,wait,estado="OBSERVADA")
+    Filtrar_vencer_acreditacion(driver,wait)
 
     time.sleep(2)
     driver.quit()
