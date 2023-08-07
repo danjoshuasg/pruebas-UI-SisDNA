@@ -13,7 +13,6 @@ from selenium.common.exceptions import ElementNotInteractableException
 import time
 
 
-
 def MoverClick(driver, elemento):
     mover_mouse = webdriver.ActionChains(driver)
     mover_mouse.move_to_element(elemento)
@@ -21,9 +20,12 @@ def MoverClick(driver, elemento):
     mover_mouse.move_to_element(elemento).click().perform()
     time.sleep(1)
 
+def click_vacio(driver, elemento_vacio ='j_idt22:j_idt24'):
+    elemento_vacio = driver.find_element(By.ID,elemento_vacio)
+    MoverClick(driver,elemento_vacio)
+
 
 def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-web/faces/login.xhtml", user_name="admin", password="123456"):
-
     driver.get(url_login)
     print(driver.title)
     driver.implicitly_wait(5)
@@ -136,6 +138,50 @@ def Prueba_0(driver,wait):
         print("El elemento no fue encontrado en la página")
         return 0
 
+def probar_ids(driver, ids):
+    for id in ids:
+        try:
+            elemento=driver.find_element(By.ID,id)
+            return elemento
+        except ElementNotInteractableException:
+            continue
+        except NoSuchElementException:
+            continue
+        except TimeoutException:
+            continue
+    return None
+def probar_xpaths(driver, xpaths):
+    for xpath in xpaths:
+        try:
+            elemento=driver.find_element(By.XPATH,xpath)
+            return elemento
+        except ElementNotInteractableException:
+            continue
+        except NoSuchElementException:
+            continue
+        except TimeoutException:
+            continue
+    return None
+
+def Ingresar_supervision(driver, wait, nueva=False):
+    id_supervision_fila =["//*[@id='formularioPrincipal1:tablaSup_data']/tr[1]/td[1]/div/span[1]", 
+                          "//*[@id='formularioPrincipal1:tablaSup_data']/tr/td[1]/div/span[1]"]
+    existe_supervision_fila = probar_xpaths(driver=driver, xpaths=id_supervision_fila)
+    if existe_supervision_fila is None:
+        print("No se puede encontrar el id de supervision")
+    else:
+        MoverClick(driver,existe_supervision_fila)
+        print("Se encontró una supervisión")
+        if nueva:
+            id_nueva_supervision ="//*[@id='formularioPrincipal1:tablaSup:0:j_idt365']/span[1]"
+            boton_nueva=driver.find_element(By.XPATH,id_nueva_supervision)
+            MoverClick(driver,boton_nueva)
+            print("Se creará una nueva supervisión")
+
+
+
+
+
 def Desplegar():
     driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 10)
@@ -145,6 +191,7 @@ def Desplegar():
     print("Número de pruebas exitosas: ",cont)
     driver.implicitly_wait(5)
     driver.quit()
+
 
 
 if __name__ == "__main__":

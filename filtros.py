@@ -1,6 +1,7 @@
 import json
 import prueba_funcional
 
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -120,6 +121,10 @@ def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrit
         print("El submódulo no tiene el filtro de distrito")
         pass
 
+# Filtrado del código de la DNA
+
+
+# Encontrar el ID existente sino retornar nulo.
 def probar_ids(driver, ids):
     for id in ids:
         try:
@@ -133,6 +138,7 @@ def probar_ids(driver, ids):
             continue
     return None
 
+# Darle click al vacío para que funcione
 def click_vacio(driver, elemento_vacio ='j_idt22:j_idt24'):
     elemento_vacio = driver.find_element(By.ID,elemento_vacio)
     prueba_funcional.MoverClick(driver,elemento_vacio)
@@ -148,6 +154,87 @@ def Filtrar_codigo(driver, codigo_DNA="'01001"):
         input_ID_DNA.send_keys(codigo_DNA)
         click_vacio(driver)
         print("Codigo de DNA encontrado")
+
+
+# Borrar todos los filtros
+
+def Borrar_filtros(driver,wait):
+
+    #Borrar filtro de ubigeo
+    id_frm_departamento = ['frmBuscar:busDepartamento_label']
+    id_sin_departamento= 'frmBuscar:busDepartamento_0'
+    existe_filtro_departamento = probar_ids(driver,id_frm_departamento)
+
+    if existe_filtro_departamento is None:
+        print("El ID del filtro del departamento no fue encontrado")
+    else:
+        prueba_funcional.MoverClick(driver,existe_filtro_departamento)
+        sin_departamento = wait.until(EC.presence_of_element_located((By.ID, id_sin_departamento)))
+        prueba_funcional.MoverClick(driver,sin_departamento)
+        print("Filtro del ubigeo limpio")
+
+
+    #Borrar el filtro del código
+    id_frm_Codigo = ["frmBuscar:txtCodigo","frmBuscar:busCodigo"]
+    existe_filtro_codigo = probar_ids(driver,id_frm_Codigo)
+    if existe_filtro_codigo is None:
+        print("El ID del filtro de codigo DNA no fue encontrado")
+    else:    
+        existe_filtro_codigo.clear()
+        click_vacio(driver)
+        print("Filtro del código limpio")
+
+    #Borrar el estado de la DNA
+    id_frm_estado = ["frmBuscar:busEstado_label","frmBuscar:txtEstadoBus"]
+    id_sin_estado = "frmBuscar:busEstado_0"
+    existe_estado = probar_ids(driver,id_frm_estado)
+    if existe_estado is None:
+        print("El ID del filtro de estado DNA no fue encontrado")
+    else:
+        prueba_funcional.MoverClick(driver,existe_estado)
+        sin_estado = wait.until(EC.presence_of_element_located((By.ID, id_sin_estado)))
+        prueba_funcional.MoverClick(driver,sin_estado)
+        print("Filtro del estado limpio")
+
+    #Borrar la fecha de supervision
+    id_frm_fecha_desde=["frmBuscar:j_idt331_input"]
+    id_frm_fecha_hasta=["frmBuscar:j_idt336_input"]
+    existe_fecha_desde = probar_ids(driver,id_frm_fecha_desde)
+    existe_fecha_hasta = probar_ids(driver,id_frm_fecha_hasta)
+
+    if existe_fecha_desde is None:
+        print("El ID del filtro de fecha 'desde' no fue encontrado")
+    else:
+        prueba_funcional.MoverClick(driver,existe_fecha_desde)
+        existe_fecha_desde.clear()
+        print("Filtro de fecha 'desde' limpio")
+    
+    if existe_fecha_hasta is None:
+        print("El ID del filtro de fecha 'hasta' no fue encontrado")
+    else:
+        prueba_funcional.MoverClick(driver,existe_fecha_hasta)
+        existe_fecha_hasta.clear()
+        print("Filtro de fecha 'hasta' limpio")
+
+    #Borrar el supervisor
+    id_frm_supervisor=["frmBuscar:selSupervisor_label"]
+    id_sin_supervisor="frmBuscar:selSupervisor_0"
+    existe_supervisor = probar_ids(driver,id_frm_supervisor)
+    if existe_supervisor is None:
+        print("El ID del supervisor no fue encontrado")
+    else:
+        prueba_funcional.MoverClick(driver,existe_supervisor)
+        sin_supervisor = wait.until(EC.presence_of_element_located((By.ID, id_sin_supervisor)))
+        prueba_funcional.MoverClick(driver,sin_supervisor)
+        print("Filtro del supervisor limpio")
+
+
+
+
+
+
+
+
 
 ## Filtros específicos ##
 
@@ -172,7 +259,7 @@ def Filtrar_estado_acreditacion(driver, wait, estado="ACREDITADA"): #¿Solo est�
                           "ACREDITADA":"frmBuscar:txtEstadoBus_4", 
                           "DENEGADA":"frmBuscar:txtEstadoBus_5"}
     if estado not in diccionario_estados:
-        print("El estado de la DNA no es válido")
+        print("El estado de la DNA en acreditación no es válido")
     else: 
         id_estado=diccionario_estados[estado]
         filtro_estado = driver.find_element(By.ID, id_frm_estado)
@@ -181,6 +268,18 @@ def Filtrar_estado_acreditacion(driver, wait, estado="ACREDITADA"): #¿Solo est�
         prueba_funcional.MoverClick(driver,estado)
         print("Filtrado del estado de la acreditación exitoso")
 
+def Filtrar_estado_supervision(driver, wait, estado='EN PROCESO'):
+    id_frm_estado = "frmBuscar:busEstado_label"
+    diccionario_estados ={"CONCLUIDO":"frmBuscar:busEstado_1", "EN PROCESO":"frmBuscar:busEstado_2"}
+    if estado not in diccionario_estados:
+        print("El estado de la DNA en supervisión no es válido")
+    else:
+        id_estado=diccionario_estados[estado]
+        filtro_estado = driver.find_element(By.ID, id_frm_estado)
+        prueba_funcional.MoverClick(driver,filtro_estado)
+        estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
+        prueba_funcional.MoverClick(driver,estado)
+        print("Filtrado del estado de la DNA exitoso")
 
 def Filtrar_vencer_acreditacion(driver, wait, estado_vencer="TODAS"):
     id_frm_vencer="frmBuscar:selFiltroAcre_label"
@@ -198,6 +297,87 @@ def Filtrar_vencer_acreditacion(driver, wait, estado_vencer="TODAS"):
 
 def Filtrar_anio_capacitacion(driver,wait, year="2023"):
     id_frm_year="frmBuscar:txtAnio_input"
+
+# Filtrar por fechas
+def validar_fecha(fecha_str):
+    try:
+        # Intentamos convertir la fecha a un objeto datetime
+        datetime.strptime(fecha_str, '%d/%m/%Y')
+        return True
+    except ValueError:
+        # Si se genera una excepción, la fecha no es válida
+        print("La fecha no es válida.")
+        return False
+
+def validar_fecha_posterior(fecha1, fecha2):
+    try:
+        fecha1 = datetime.strptime(fecha1, '%d/%m/%Y')
+        fecha2 = datetime.strptime(fecha2, '%d/%m/%Y')
+        return fecha1 > fecha2
+    except ValueError:
+        # Si se genera una excepción, una de las fechas no es válida
+        print("La fecha de 'hasta' debe ser mayor a la de 'desde'")
+        return False
+
+def Filtrar_fechas_supervision(driver, wait, desde=None, hasta = None):
+    id_frm_fecha_desde="frmBuscar:j_idt331_input"
+    id_frm_fecha_hasta="frmBuscar:j_idt336_input"    
+    if hasta is None:
+        if validar_fecha(desde):
+            filtro_fecha_desde = wait.until(EC.presence_of_element_located((By.ID, id_frm_fecha_desde)))
+            prueba_funcional.MoverClick(driver,filtro_fecha_desde)
+            filtro_fecha_desde.clear()
+            filtro_fecha_desde.send_keys(desde)
+            click_vacio(driver)
+
+        
+    elif desde is None:
+        if validar_fecha(hasta):
+            filtro_fecha_hasta= wait.until(EC.presence_of_element_located((By.ID, id_frm_fecha_hasta)))
+            prueba_funcional.MoverClick(driver,filtro_fecha_hasta)
+            filtro_fecha_hasta.clear()
+            filtro_fecha_hasta.send_keys(hasta)
+            click_vacio(driver)
+
+    elif hasta is None and desde is None:
+        print("Ingrese una fecha hasta y/o desde")
+    
+    else:
+        
+        if validar_fecha(desde) and validar_fecha(hasta) and validar_fecha_posterior(hasta, desde):
+            filtro_fecha_desde = wait.until(EC.presence_of_element_located((By.ID, id_frm_fecha_desde)))
+            prueba_funcional.MoverClick(driver,filtro_fecha_desde)
+            filtro_fecha_desde.clear()
+            filtro_fecha_desde.send_keys(desde)
+            click_vacio(driver)
+
+            filtro_fecha_hasta= wait.until(EC.presence_of_element_located((By.ID, id_frm_fecha_hasta)))
+            prueba_funcional.MoverClick(driver,filtro_fecha_hasta)
+            filtro_fecha_hasta.clear()
+            filtro_fecha_hasta.send_keys(hasta)
+            click_vacio(driver)
+
+
+def Filtrar_supervisores(driver, wait, supervisor="NORA"):
+    id_frm_supervisor ="frmBuscar:selSupervisor_label"
+    diccionario_supervisores ={"DAVID":"frmBuscar:selSupervisor_7",
+                               "NORA":"frmBuscar:selSupervisor_8",
+                               "MARCOS":"frmBuscar:selSupervisor_21",
+                               "CRISTIAN":"frmBuscar:selSupervisor_41"}
+    if supervisor not in diccionario_supervisores:
+        print("El supervisor no es válido")
+    else: 
+        id_supervisor=diccionario_supervisores[supervisor]
+        filtro_supervisor = driver.find_element(By.ID, id_frm_supervisor)
+        prueba_funcional.MoverClick(driver,filtro_supervisor)
+        supervisor=wait.until(EC.presence_of_element_located((By.ID, id_supervisor)))
+        prueba_funcional.MoverClick(driver,supervisor)
+        print("Filtrado del supervisor fue exitoso")
+
+
+    #Corregir si la fecha es correcta
+
+
         
     
 
@@ -206,9 +386,9 @@ def Probar():
     wait = WebDriverWait(driver, 5)
     prueba_funcional.Ingresar_Sistema(driver=driver,wait=wait, user_name="72623744", password="123456$$dan") 
     prueba_funcional.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre="dna",submodulo_nombre="acreditacion")
-    Filtrar_ubigeo(driver=driver,wait=wait, departamento="AREQUIPA", provincia="AREQUIPA", distrito="QUEQUEÑA")
-    Filtrar_codigo(driver=driver, codigo_DNA="20011")
-    Filtrar_estado_DNA(driver,wait,estado="NO ACREDITADA")
+    #Filtrar_ubigeo(driver=driver,wait=wait, departamento="AREQUIPA", provincia="AREQUIPA", distrito="QUEQUEÑA")
+    #Filtrar_codigo(driver=driver, codigo_DNA="20011")
+    #Filtrar_estado_DNA(driver,wait,estado="NO ACREDITADA")
     Filtrar_estado_acreditacion(driver,wait,estado="OBSERVADA")
     Filtrar_vencer_acreditacion(driver,wait)
 
