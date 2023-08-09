@@ -20,7 +20,7 @@ wait = WebDriverWait(driver, 10)
 
 #Ingresar Colegiatura Responsable
 
-def ingresar_campo_supervision_input(driver, wait, campo=None, valor =None):
+def ingresar_campo_supervision(driver, wait, campo=None, valor =None):
     diccionario_inputs={"Fecha_input":["frmNuevo:txtFecha_input",0],
                         "Hora_input":["frmNuevo:txtHora_input",1],
                         #DNA
@@ -72,6 +72,20 @@ def ingresar_campo_supervision_input(driver, wait, campo=None, valor =None):
 
     except Exception as e:
         print("Error en el ingreso de datos: ", e)
+        driver.quit()
+
+def seleccionar_campo_supervision(driver, wait, campo=None, valor=None):
+    diccionario_campos={}
+    if campo is None:
+        print('Ingrese campo de supervisión que se seleccionará')
+    else:
+        if valor is None:
+            print('Ingrese un valor al campo')
+            
+
+def ingresar_checkbox_supervision(driver, wait, campo, valor):
+    print("Elegir campo y valor")
+
 
 def seleccionar_estado(driver,wait,estado="EN PROCESO"):
     id_frm_estado ="frmNuevo:selEstado_label"
@@ -116,6 +130,22 @@ def seleccionar_modalidad(driver, wait, modalidad="PRESENCIAL"):
         prueba_funcional.MoverClick(driver,modalidad)
         print("Filtrado de la modalidad fue exitoso")
 
+
+def seleccionar_modalidad(driver, wait, modalidad="PRESENCIAL"):
+    id_frm_modalidad ="frmNuevo:txtModalidad_label"
+    diccionario_supervisores ={"PRESENCIAL":"frmNuevo:txtModalidad_1",
+                               "VIRTUAL":"frmNuevo:txtModalidad_2"}
+    if modalidad not in diccionario_supervisores:
+        print("La modalidad no es válida")
+    else: 
+        id_modalidad=diccionario_supervisores[modalidad]
+        filtro_modalidad = driver.find_element(By.ID, id_frm_modalidad)
+        prueba_funcional.MoverClick(driver,filtro_modalidad)
+        modalidad=wait.until(EC.presence_of_element_located((By.ID, id_modalidad)))
+        prueba_funcional.MoverClick(driver,modalidad)
+        print("Filtrado de la modalidad fue exitoso")
+
+
 def guardar_supervision(driver, tiempo_espera=20):
     wait_guardado = WebDriverWait(driver, tiempo_espera)
     id_buttom_guardar ="frmNuevo:j_idt298"
@@ -157,19 +187,39 @@ def Prueba():
                               "Correo_entrevistado_input"]
 
         
+
         seleccionar_supervisor(driver, wait, supervisor="DAVID")
+
+        #opcion = wait.until(EC.presence_of_element_located((By.ID, "frmNuevo:rbTipoLocal:0")))
+        # wait_i = WebDriverWait(driver, 10)
+        # radio_blanco = wait_i.until(EC.element_to_be_clickable((By.ID, "frmNuevo:rbTipoLocal:0")))
+        # radio_blanco.click()
+        # time.sleep(10)
+
+        valor = "PRIVADO"
+        diccionario_tipo = {"PRIVADO":"1", "COMPARTIDO":"2"}
+
+        
+        id_tipo_local = "//*[@id='frmNuevo:rbTipoLocal']/tbody/tr/td["+diccionario_tipo[valor]+"]/label"
+        tipo_local = driver.find_element(By.XPATH, id_tipo_local)
+        print(tipo_local.text)
+
+        elemento_div = driver.find_element(By.XPATH, "//*[@id='frmNuevo:rbTipoLocal']/tbody/tr/td[1]/div/div[2]")
+        script = "arguments[0].click();"
+        driver.execute_script(script, elemento_div)
+
         for campo_lista in lista_campos_llenar:
             tiempo_espera = time.sleep(3)
             #Esperar que el PIDE responda
             if campo_lista in ["DNI_entrevistado_input", "DNI_responsable_input"]:
-                ingresar_campo_supervision_input(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
+                ingresar_campo_supervision(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
                 tiempo_espera
             #Para evitar el error del elementO STALE
             elif campo_lista in ["Hora_input","Cargo_entrevistado_input"]:
-                ingresar_campo_supervision_input(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
-                ingresar_campo_supervision_input(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
+                ingresar_campo_supervision(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
+                ingresar_campo_supervision(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
             else:
-                ingresar_campo_supervision_input(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
+                ingresar_campo_supervision(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
         
         seleccionar_estado(driver,wait)
         seleccionar_modalidad(driver,wait)
