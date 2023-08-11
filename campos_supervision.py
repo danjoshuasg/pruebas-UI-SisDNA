@@ -9,14 +9,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.common.exceptions import StaleElementReferenceException
-
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementNotInteractableException
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
 
 driver = webdriver.Chrome()
-wait = WebDriverWait(driver, 10)
+wait = WebDriverWait(driver, 15)
 
 #Ingresar Colegiatura Responsable
 
@@ -83,8 +85,28 @@ def seleccionar_campo_supervision(driver, wait, campo=None, valor=None):
             print('Ingrese un valor al campo')
             
 
-def ingresar_checkbox_supervision(driver, wait, campo, valor):
-    print("Elegir campo y valor")
+def ingresar_checkbox_supervision(driver, wait, campo=None, valor=None):
+    valor =str(valor)
+    if campo is None:
+        print("Ingrese el campo")
+    
+    else:
+        if valor is None:
+            print("Ingrese un valor del campo")
+        else:
+            diccionario_valores = {"PRIVADO":1,"COMPARTIDO":2,"BUENO":1,"REGULAR":2,"MALO":3,"SI":1,"NO":2,"CONFORME":1,"OBSERVADO":2,"NO APLICA":3, 1:1, 2:2, 3:3}
+            diccionario_campos_valor = {"local_dna":f"//*[@id='frmNuevo:rbTipoLocal']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]", 
+                                "conservacion_dna":"//*[@id='frmNuevo:rbConserva']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]", 
+                                "comudena_dna":"//*[@id='frmNuevo:rbComudena']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]",
+                                "coordinadora_dna":"//*[@id='frmNuevo:rbCoord']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]"
+                                }
+            if str.isnumeric(campo):
+                diccionario_campos_valor[f"{campo}"] = f"//*[@id='frmNuevo:j_idt233:{str(int(campo)-1)}:j_idt235']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]"
+            elemento_div = driver.find_element(By.XPATH, diccionario_campos_valor[campo])
+            script = "arguments[0].click();"
+            driver.execute_script(script, elemento_div)
+
+
 
 
 def seleccionar_estado(driver,wait,estado="EN PROCESO"):
@@ -101,20 +123,34 @@ def seleccionar_estado(driver,wait,estado="EN PROCESO"):
         print("Filtrado del estado de la DNA exitoso")
     
 def seleccionar_supervisor(driver, wait, supervisor="NORA"):
-    id_frm_supervisor ="frmNuevo:selSupervisor_label"
-    diccionario_supervisores ={"DAVID":"frmNuevo:selSupervisor_7",
-                               "NORA":"frmNuevo:selSupervisor_8",
-                               "MARCOS":"frmNuevo:selSupervisor_21",
-                               "CRISTIAN":"frmNuevo:selSupervisor_41"}
-    if supervisor not in diccionario_supervisores:
-        print("El supervisor no es válido")
-    else: 
-        id_supervisor=diccionario_supervisores[supervisor]
-        filtro_supervisor = driver.find_element(By.ID, id_frm_supervisor)
-        prueba_funcional.MoverClick(driver,filtro_supervisor)
-        supervisor=wait.until(EC.presence_of_element_located((By.ID, id_supervisor)))
-        prueba_funcional.MoverClick(driver,supervisor)
-        print("Filtrado del supervisor fue exitoso")
+    try:
+        id_frm_supervisor ="frmNuevo:selSupervisor_label"
+        diccionario_supervisores ={"DAVID":"frmNuevo:selSupervisor_7",
+                                "NORA":"frmNuevo:selSupervisor_8",
+                                "MARCOS":"frmNuevo:selSupervisor_21",
+                                "CRISTIAN":"frmNuevo:selSupervisor_41"}
+        if supervisor not in diccionario_supervisores:
+            print("El supervisor no es válido")
+        else: 
+            id_supervisor=diccionario_supervisores[supervisor]
+            filtro_supervisor = driver.find_element(By.ID, id_frm_supervisor)
+            prueba_funcional.MoverClick(driver,filtro_supervisor)
+            supervisor=wait.until(EC.presence_of_element_located((By.ID, id_supervisor)))
+            prueba_funcional.MoverClick(driver,supervisor)
+            print("Filtrado del supervisor fue exitoso")
+
+    except ElementNotInteractableException:
+        print("El elemento no es interactivo o no está dentro del proceso")
+        pass
+        return 0
+    except TimeoutException:
+        print("El elemento no fue encontrado a tiempo")
+        pass
+        return 0
+    
+    except NoSuchElementException:
+        print("El elemento no fue encontrado en la página")
+        return 0
 
 def seleccionar_modalidad(driver, wait, modalidad="PRESENCIAL"):
     id_frm_modalidad ="frmNuevo:txtModalidad_label"
@@ -144,6 +180,7 @@ def seleccionar_modalidad(driver, wait, modalidad="PRESENCIAL"):
         modalidad=wait.until(EC.presence_of_element_located((By.ID, id_modalidad)))
         prueba_funcional.MoverClick(driver,modalidad)
         print("Filtrado de la modalidad fue exitoso")
+
 
 
 def guardar_supervision(driver, tiempo_espera=20):
@@ -189,24 +226,14 @@ def Prueba():
         
 
         seleccionar_supervisor(driver, wait, supervisor="DAVID")
-
+        #ingresar_checkbox_supervision(driver,wait,campo="conservacion_dna",valor=1)
+        ingresar_checkbox_supervision(driver,wait,campo=1,valor=1)
         #opcion = wait.until(EC.presence_of_element_located((By.ID, "frmNuevo:rbTipoLocal:0")))
         # wait_i = WebDriverWait(driver, 10)
         # radio_blanco = wait_i.until(EC.element_to_be_clickable((By.ID, "frmNuevo:rbTipoLocal:0")))
         # radio_blanco.click()
         # time.sleep(10)
 
-        valor = "PRIVADO"
-        diccionario_tipo = {"PRIVADO":"1", "COMPARTIDO":"2"}
-
-        
-        id_tipo_local = "//*[@id='frmNuevo:rbTipoLocal']/tbody/tr/td["+diccionario_tipo[valor]+"]/label"
-        tipo_local = driver.find_element(By.XPATH, id_tipo_local)
-        print(tipo_local.text)
-
-        elemento_div = driver.find_element(By.XPATH, "//*[@id='frmNuevo:rbTipoLocal']/tbody/tr/td[1]/div/div[2]")
-        script = "arguments[0].click();"
-        driver.execute_script(script, elemento_div)
 
         for campo_lista in lista_campos_llenar:
             tiempo_espera = time.sleep(3)
@@ -221,9 +248,9 @@ def Prueba():
             else:
                 ingresar_campo_supervision(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
         
-        seleccionar_estado(driver,wait)
-        seleccionar_modalidad(driver,wait)
-        guardar_supervision(driver,15)
+        #seleccionar_estado(driver,wait)
+        #seleccionar_modalidad(driver,wait)
+        #guardar_supervision(driver,15)
         time.sleep(3)
         final = time.time()
         print("Prueba de llenado exitosa, tiempo de ejecución: ", final - inicio, " segundos")

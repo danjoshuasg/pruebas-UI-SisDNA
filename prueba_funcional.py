@@ -53,19 +53,32 @@ def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-w
 # Verificar si estoy entrando al enlace de DNA correctamente:
 
 def Ingresar_Modulo(driver,wait,modulo_nombre="inicio"):
-    modulos_SisDNA ={"inicio":"Inicio","dna":"0","riesgo":"1","mantenimiento":"2","seguridad":"3"}
-    if modulo_nombre not in modulos_SisDNA:
-        print("Error al elegir el nombre del módulo, Debe elegir entre:")
-        for modulo in modulos_SisDNA.keys():
-            print(modulo)
+    try:
+        modulos_SisDNA ={"inicio":"Inicio","dna":"0","riesgo":"1","mantenimiento":"2","seguridad":"3"}
+        if modulo_nombre not in modulos_SisDNA:
+            print("Error al elegir el nombre del módulo, Debe elegir entre:")
+            for modulo in modulos_SisDNA.keys():
+                print(modulo)
+            pass
+        else:
+            modulo= wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[data-tooltip-content="#tc'+ modulos_SisDNA[modulo_nombre] +'"]')))        
+            mover_mouse = webdriver.ActionChains(driver)
+            mover_mouse.move_to_element(modulo)
+            mover_mouse.perform()
+            mover_mouse.move_to_element(modulo).click().perform()
+            time.sleep(2)
+    except ElementNotInteractableException:
+        print("El elemento no es interactivo o no está dentro del proceso")
         pass
-    else:
-        modulo= wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[data-tooltip-content="#tc'+ modulos_SisDNA[modulo_nombre] +'"]')))        
-        mover_mouse = webdriver.ActionChains(driver)
-        mover_mouse.move_to_element(modulo)
-        mover_mouse.perform()
-        mover_mouse.move_to_element(modulo).click().perform()
-        time.sleep(2)
+        return 0
+    except TimeoutException:
+        print("El elemento no fue encontrado a tiempo")
+        pass
+        return 0
+    
+    except NoSuchElementException:
+        print("El elemento no fue encontrado en la página")
+        return 0
 
 def Ingresar_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="dna"):
     submodulos_SisDNA ={"dna":{"dna":"/dna/","acreditacion":"/acreditacion/","supervision":"/supervision/","capacitacion_programacion":"/capacitacion/curso/","capacitacion_ejecucion":"/capacitacion/solicitud/","reportes":"/reporte/"}, 
@@ -176,6 +189,7 @@ def Ingresar_supervision(driver, wait, nueva=False):
             id_nueva_supervision ="//*[@id='formularioPrincipal1:tablaSup:0:j_idt365']/span[1]"
             boton_nueva=driver.find_element(By.XPATH,id_nueva_supervision)
             MoverClick(driver,boton_nueva)
+            elemento = wait.until(EC.presence_of_element_located((By.ID, "frmNuevo:j_idt57")))
             print("Se creará una nueva supervisión")
 
 
