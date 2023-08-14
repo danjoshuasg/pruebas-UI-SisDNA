@@ -1,4 +1,4 @@
-import prueba_funcional
+import acciones_comunes
 import time
 import filtros
 import borrar_filtros
@@ -13,8 +13,8 @@ wait = WebDriverWait(driver, 10)
 #Ingresar al sistema y al modulo
 def Prueba():
     inicio=time.time()
-    prueba_funcional.Ingresar_Sistema(driver=driver,wait=wait, user_name="72623744", password="123456$$dan") 
-    prueba_funcional.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre="dna",submodulo_nombre="supervision")
+    acciones_comunes.Ingresar_Sistema(driver=driver,wait=wait, user_name="72623744", password="123456$$dan") 
+    acciones_comunes.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre="dna",submodulo_nombre="supervision")
 
     filtros.Filtrar_ubigeo(driver=driver,wait=wait,departamento="AMAZONAS",provincia="CHACHAPOYAS", distrito="CHACHAPOYAS")
     borrar_filtros.Borrar_filtros(driver=driver,wait=wait,filtro="Filtrar_ubigeo")

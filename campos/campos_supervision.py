@@ -1,4 +1,4 @@
-import prueba_funcional
+import acciones_comunes
 import time
 import filtros
 import pandas as pd
@@ -61,12 +61,12 @@ def ingresar_campo_supervision(driver, wait, campo=None, valor =None):
                 print(f"No se modificó el campo {campo}")
             else:
                 filtro = wait.until(EC.presence_of_element_located((By.ID, id_frm)))
-                prueba_funcional.MoverClick(driver,filtro) #click
+                acciones_comunes.MoverClick(driver,filtro) #click
                 if diccionario_inputs[campo][1] >0:
                     filtro.clear()
                 #time.sleep(2)
                 filtro.send_keys(valor)
-                prueba_funcional.click_vacio(driver)
+                acciones_comunes.click_vacio(driver)
                 print(f"Se cambió el/la {campo} en la ficha de supervisión")
     
     except StaleElementReferenceException:
@@ -117,9 +117,9 @@ def seleccionar_estado(driver,wait,estado="EN PROCESO"):
     else: 
         id_estado=diccionario_estados[estado]
         filtro_estado = driver.find_element(By.ID, id_frm_estado)
-        prueba_funcional.MoverClick(driver,filtro_estado)
+        acciones_comunes.MoverClick(driver,filtro_estado)
         estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
-        prueba_funcional.MoverClick(driver,estado)
+        acciones_comunes.MoverClick(driver,estado)
         print("Filtrado del estado de la DNA exitoso")
     
 def seleccionar_supervisor(driver, wait, supervisor="NORA"):
@@ -134,9 +134,9 @@ def seleccionar_supervisor(driver, wait, supervisor="NORA"):
         else: 
             id_supervisor=diccionario_supervisores[supervisor]
             filtro_supervisor = driver.find_element(By.ID, id_frm_supervisor)
-            prueba_funcional.MoverClick(driver,filtro_supervisor)
+            acciones_comunes.MoverClick(driver,filtro_supervisor)
             supervisor=wait.until(EC.presence_of_element_located((By.ID, id_supervisor)))
-            prueba_funcional.MoverClick(driver,supervisor)
+            acciones_comunes.MoverClick(driver,supervisor)
             print("Filtrado del supervisor fue exitoso")
 
     except ElementNotInteractableException:
@@ -161,9 +161,9 @@ def seleccionar_modalidad(driver, wait, modalidad="PRESENCIAL"):
     else: 
         id_modalidad=diccionario_supervisores[modalidad]
         filtro_modalidad = driver.find_element(By.ID, id_frm_modalidad)
-        prueba_funcional.MoverClick(driver,filtro_modalidad)
+        acciones_comunes.MoverClick(driver,filtro_modalidad)
         modalidad=wait.until(EC.presence_of_element_located((By.ID, id_modalidad)))
-        prueba_funcional.MoverClick(driver,modalidad)
+        acciones_comunes.MoverClick(driver,modalidad)
         print("Filtrado de la modalidad fue exitoso")
 
 
@@ -176,9 +176,9 @@ def seleccionar_modalidad(driver, wait, modalidad="PRESENCIAL"):
     else: 
         id_modalidad=diccionario_supervisores[modalidad]
         filtro_modalidad = driver.find_element(By.ID, id_frm_modalidad)
-        prueba_funcional.MoverClick(driver,filtro_modalidad)
+        acciones_comunes.MoverClick(driver,filtro_modalidad)
         modalidad=wait.until(EC.presence_of_element_located((By.ID, id_modalidad)))
-        prueba_funcional.MoverClick(driver,modalidad)
+        acciones_comunes.MoverClick(driver,modalidad)
         print("Filtrado de la modalidad fue exitoso")
 
 
@@ -187,7 +187,7 @@ def guardar_supervision(driver, tiempo_espera=20):
     wait_guardado = WebDriverWait(driver, tiempo_espera)
     id_buttom_guardar ="frmNuevo:j_idt298"
     buttom = driver.find_element(By.ID, id_buttom_guardar)
-    prueba_funcional.MoverClick(driver,buttom)
+    acciones_comunes.MoverClick(driver,buttom)
     titulo_tabla = wait_guardado.until(EC.presence_of_element_located((By.ID, "//*[@id='frmBuscar:j_idt301']/div/span")))
     print(titulo_tabla.text)
     print("Se guardó con éxito la ficha")
@@ -196,11 +196,11 @@ def Prueba():
     datos = pd.read_excel('campos_supervision_excel.xlsx')
     try:
         inicio = time.time()
-        prueba_funcional.Ingresar_Sistema(driver=driver, wait=wait, user_name="72623744", password="123456$$dan") 
-        prueba_funcional.Ingresar_Submodulo(driver=driver, wait=wait, modulo_nombre="dna", submodulo_nombre="supervision")
+        acciones_comunes.Ingresar_Sistema(driver=driver, wait=wait, user_name="72623744", password="123456$$dan") 
+        acciones_comunes.Ingresar_Submodulo(driver=driver, wait=wait, modulo_nombre="dna", submodulo_nombre="supervision")
 
         filtros.Filtrar_supervisores(driver=driver, wait=wait, supervisor="DAVID")
-        prueba_funcional.Ingresar_supervision(driver=driver, wait=wait, nueva=True)
+        acciones_comunes.Ingresar_supervision(driver=driver, wait=wait, nueva=True)
 
         lista_campos_llenar =[#"Fecha_input",
                               #"Hora_input", 

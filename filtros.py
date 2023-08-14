@@ -1,5 +1,5 @@
 import json
-import prueba_funcional
+import acciones_comunes
 
 from datetime import datetime
 from selenium import webdriver
@@ -36,12 +36,12 @@ def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrit
                 n_departamentos=len(diccionario_ubigeo)
                 
             filtro_departamento = wait.until(EC.presence_of_element_located((By.ID, id_frm_departamento)))
-            prueba_funcional.MoverClick(driver,filtro_departamento)
+            acciones_comunes.MoverClick(driver,filtro_departamento)
             for id in range(n_departamentos):
                 departamento = wait.until(EC.presence_of_element_located((By.ID, "frmBuscar:busDepartamento_"+str(id))))
                 if departamento.text == departamento_buscar:
                     print(departamento.text)
-                    prueba_funcional.MoverClick(driver,departamento)
+                    acciones_comunes.MoverClick(driver,departamento)
                     break
         
         elif distrito is None:
@@ -57,21 +57,21 @@ def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrit
                     n_provincias=len(diccionario_ubigeo[departamento_buscar])
             
             filtro_departamento = wait.until(EC.presence_of_element_located((By.ID, id_frm_departamento)))
-            prueba_funcional.MoverClick(driver,filtro_departamento)
+            acciones_comunes.MoverClick(driver,filtro_departamento)
             for id in range(n_departamentos):
                 departamento = wait.until(EC.presence_of_element_located((By.ID, "frmBuscar:busDepartamento_"+str(id))))
                 if departamento.text == departamento_buscar:
                     print(departamento.text)
-                    prueba_funcional.MoverClick(driver,departamento)
+                    acciones_comunes.MoverClick(driver,departamento)
                     break
 
             filtro_provincia = wait.until(EC.presence_of_element_located((By.ID, id_frm_provincia)))
-            prueba_funcional.MoverClick(driver,filtro_provincia)
+            acciones_comunes.MoverClick(driver,filtro_provincia)
             for id in range(n_provincias):
                 provincia = wait.until(EC.presence_of_element_located((By.ID, "frmBuscar:busProvincia_"+str(id))))
                 if provincia.text == provincia_buscar:
                     print(provincia.text)
-                    prueba_funcional.MoverClick(driver,provincia)
+                    acciones_comunes.MoverClick(driver,provincia)
                     break
 
             
@@ -93,30 +93,30 @@ def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrit
                         n_distritos=len(diccionario_ubigeo[departamento_buscar][provincia_buscar])
 
             filtro_departamento = wait.until(EC.presence_of_element_located((By.ID, id_frm_departamento)))
-            prueba_funcional.MoverClick(driver,filtro_departamento)
+            acciones_comunes.MoverClick(driver,filtro_departamento)
             for id in range(n_departamentos):
                 departamento = wait.until(EC.presence_of_element_located((By.ID, "frmBuscar:busDepartamento_"+str(id))))
                 if departamento.text == departamento_buscar:
                     print(departamento.text)
-                    prueba_funcional.MoverClick(driver,departamento)
+                    acciones_comunes.MoverClick(driver,departamento)
                     break
                        
             filtro_provincia = wait.until(EC.presence_of_element_located((By.ID, id_frm_provincia)))
-            prueba_funcional.MoverClick(driver,filtro_provincia)
+            acciones_comunes.MoverClick(driver,filtro_provincia)
             for id in range(n_provincias):
                 provincia = wait.until(EC.presence_of_element_located((By.ID, "frmBuscar:busProvincia_"+str(id))))
                 if provincia.text == provincia_buscar:
                     print(provincia.text)
-                    prueba_funcional.MoverClick(driver,provincia)
+                    acciones_comunes.MoverClick(driver,provincia)
                     break
 
             filtro_distrito = wait.until(EC.presence_of_element_located((By.ID, id_frm_distrito)))
-            prueba_funcional.MoverClick(driver,filtro_distrito)
+            acciones_comunes.MoverClick(driver,filtro_distrito)
             for id in range(n_distritos):
                 distrito = wait.until(EC.presence_of_element_located((By.ID, "frmBuscar:busDistrito_"+str(id))))
                 if distrito.text == distrito_buscar:
                     print(distrito.text)
-                    prueba_funcional.MoverClick(driver,distrito)
+                    acciones_comunes.MoverClick(driver,distrito)
                     break
     except TimeoutException:
         print("El submódulo no tiene el filtro de distrito")
@@ -124,36 +124,15 @@ def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrit
 
 # Filtrado del código de la DNA
 
-
-# Encontrar el ID existente sino retornar nulo.
-def probar_ids(driver, ids):
-    for id in ids:
-        try:
-            elemento=driver.find_element(By.ID,id)
-            return elemento
-        except ElementNotInteractableException:
-            continue
-        except NoSuchElementException:
-            continue
-        except TimeoutException:
-            continue
-    return None
-
-# Darle click al vacío para que funcione
-def click_vacio(driver, elemento_vacio ='j_idt22:j_idt24'):
-    elemento_vacio = driver.find_element(By.ID,elemento_vacio)
-    prueba_funcional.MoverClick(driver,elemento_vacio)
-    
-
 def Filtrar_codigo(driver, codigo_DNA="'01001"):
     id_frm_Codigo = ["frmBuscar:txtCodigo","frmBuscar:busCodigo"]
-    input_ID_DNA = probar_ids(driver,id_frm_Codigo)
+    input_ID_DNA = acciones_comunes.probar_ids(driver,id_frm_Codigo)
     if input_ID_DNA is None:
         print("El ID del filtro de codigo DNA no fue encontrado")
     else:    
         input_ID_DNA.clear()
         input_ID_DNA.send_keys(codigo_DNA)
-        click_vacio(driver)
+        acciones_comunes.click_vacio(driver)
         print("Codigo de DNA encontrado")
 
 
@@ -164,69 +143,69 @@ def Borrar_filtros(driver,wait):
     #Borrar filtro de ubigeo
     id_frm_departamento = ['frmBuscar:busDepartamento_label']
     id_sin_departamento= 'frmBuscar:busDepartamento_0'
-    existe_filtro_departamento = probar_ids(driver,id_frm_departamento)
+    existe_filtro_departamento = acciones_comunes.probar_ids(driver,id_frm_departamento)
 
     if existe_filtro_departamento is None:
         print("El ID del filtro del departamento no fue encontrado")
     else:
-        prueba_funcional.MoverClick(driver,existe_filtro_departamento)
+        acciones_comunes.MoverClick(driver,existe_filtro_departamento)
         sin_departamento = wait.until(EC.presence_of_element_located((By.ID, id_sin_departamento)))
-        prueba_funcional.MoverClick(driver,sin_departamento)
+        acciones_comunes.MoverClick(driver,sin_departamento)
         print("Filtro del ubigeo limpio")
 
 
     #Borrar el filtro del código
     id_frm_Codigo = ["frmBuscar:txtCodigo","frmBuscar:busCodigo"]
-    existe_filtro_codigo = probar_ids(driver,id_frm_Codigo)
+    existe_filtro_codigo = acciones_comunes.probar_ids(driver,id_frm_Codigo)
     if existe_filtro_codigo is None:
         print("El ID del filtro de codigo DNA no fue encontrado")
     else:    
         existe_filtro_codigo.clear()
-        click_vacio(driver)
+        acciones_comunes.click_vacio(driver)
         print("Filtro del código limpio")
 
     #Borrar el estado de la DNA
     id_frm_estado = ["frmBuscar:busEstado_label","frmBuscar:txtEstadoBus"]
     id_sin_estado = "frmBuscar:busEstado_0"
-    existe_estado = probar_ids(driver,id_frm_estado)
+    existe_estado = acciones_comunes.probar_ids(driver,id_frm_estado)
     if existe_estado is None:
         print("El ID del filtro de estado DNA no fue encontrado")
     else:
-        prueba_funcional.MoverClick(driver,existe_estado)
+        acciones_comunes.MoverClick(driver,existe_estado)
         sin_estado = wait.until(EC.presence_of_element_located((By.ID, id_sin_estado)))
-        prueba_funcional.MoverClick(driver,sin_estado)
+        acciones_comunes.MoverClick(driver,sin_estado)
         print("Filtro del estado limpio")
 
     #Borrar la fecha de supervision
     id_frm_fecha_desde=["frmBuscar:j_idt331_input"]
     id_frm_fecha_hasta=["frmBuscar:j_idt336_input"]
-    existe_fecha_desde = probar_ids(driver,id_frm_fecha_desde)
-    existe_fecha_hasta = probar_ids(driver,id_frm_fecha_hasta)
+    existe_fecha_desde = acciones_comunes.probar_ids(driver,id_frm_fecha_desde)
+    existe_fecha_hasta = acciones_comunes.probar_ids(driver,id_frm_fecha_hasta)
 
     if existe_fecha_desde is None:
         print("El ID del filtro de fecha 'desde' no fue encontrado")
     else:
-        prueba_funcional.MoverClick(driver,existe_fecha_desde)
+        acciones_comunes.MoverClick(driver,existe_fecha_desde)
         existe_fecha_desde.clear()
         print("Filtro de fecha 'desde' limpio")
     
     if existe_fecha_hasta is None:
         print("El ID del filtro de fecha 'hasta' no fue encontrado")
     else:
-        prueba_funcional.MoverClick(driver,existe_fecha_hasta)
+        acciones_comunes.MoverClick(driver,existe_fecha_hasta)
         existe_fecha_hasta.clear()
         print("Filtro de fecha 'hasta' limpio")
 
     #Borrar el supervisor
     id_frm_supervisor=["frmBuscar:selSupervisor_label"]
     id_sin_supervisor="frmBuscar:selSupervisor_0"
-    existe_supervisor = probar_ids(driver,id_frm_supervisor)
+    existe_supervisor = acciones_comunes.probar_ids(driver,id_frm_supervisor)
     if existe_supervisor is None:
         print("El ID del supervisor no fue encontrado")
     else:
-        prueba_funcional.MoverClick(driver,existe_supervisor)
+        acciones_comunes.MoverClick(driver,existe_supervisor)
         sin_supervisor = wait.until(EC.presence_of_element_located((By.ID, id_sin_supervisor)))
-        prueba_funcional.MoverClick(driver,sin_supervisor)
+        acciones_comunes.MoverClick(driver,sin_supervisor)
         print("Filtro del supervisor limpio")
 
 
@@ -241,15 +220,17 @@ def Borrar_filtros(driver,wait):
 
 def Filtrar_estado_DNA(driver, wait, estado="ACREDITADA"): #¿Solo está en el submódulo de la DNA?
     id_frm_estado = "frmBuscar:txtEstadoBus"
-    diccionario_estados ={"NO ACREDITADA":"frmBuscar:txtEstadoBus_1", "NO_OPERATIVA":"frmBuscar:txtEstadoBus_2", "ACREDITADA":"frmBuscar:txtEstadoBus_3"}
+    diccionario_estados ={"NO ACREDITADA":"frmBuscar:txtEstadoBus_1", 
+                          "NO_OPERATIVA":"frmBuscar:txtEstadoBus_2", 
+                          "ACREDITADA":"frmBuscar:txtEstadoBus_3"}
     if estado not in diccionario_estados:
         print("El estado de la DNA no es válido")
     else: 
         id_estado=diccionario_estados[estado]
         filtro_estado = driver.find_element(By.ID, id_frm_estado)
-        prueba_funcional.MoverClick(driver,filtro_estado)
+        acciones_comunes.MoverClick(driver,filtro_estado)
         estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
-        prueba_funcional.MoverClick(driver,estado)
+        acciones_comunes.MoverClick(driver,estado)
         print("Filtrado del estado de la DNA exitoso")
 
 def Filtrar_estado_acreditacion(driver, wait, estado="ACREDITADA"): #¿Solo está en el submódulo de la DNA?
@@ -264,9 +245,9 @@ def Filtrar_estado_acreditacion(driver, wait, estado="ACREDITADA"): #¿Solo est�
     else: 
         id_estado=diccionario_estados[estado]
         filtro_estado = driver.find_element(By.ID, id_frm_estado)
-        prueba_funcional.MoverClick(driver,filtro_estado)
+        acciones_comunes.MoverClick(driver,filtro_estado)
         estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
-        prueba_funcional.MoverClick(driver,estado)
+        acciones_comunes.MoverClick(driver,estado)
         print("Filtrado del estado de la acreditación exitoso")
 
 def Filtrar_estado_supervision(driver, wait, estado='EN PROCESO'):
@@ -277,22 +258,26 @@ def Filtrar_estado_supervision(driver, wait, estado='EN PROCESO'):
     else:
         id_estado=diccionario_estados[estado]
         filtro_estado = driver.find_element(By.ID, id_frm_estado)
-        prueba_funcional.MoverClick(driver,filtro_estado)
+        acciones_comunes.MoverClick(driver,filtro_estado)
         estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
-        prueba_funcional.MoverClick(driver,estado)
+        acciones_comunes.MoverClick(driver,estado)
         print("Filtrado del estado de la DNA exitoso")
+
 
 def Filtrar_vencer_acreditacion(driver, wait, estado_vencer="TODAS"):
     id_frm_vencer="frmBuscar:selFiltroAcre_label"
-    diccionario_vencer={"Por Vencer":"frmBuscar:selFiltroAcre_0","TODAS":"frmBuscar:selFiltroAcre_1"}
+    diccionario_vencer={"POR VENCER":"frmBuscar:selFiltroAcre_0","TODAS":"frmBuscar:selFiltroAcre_1"}
     if estado_vencer not in diccionario_vencer:
-        print("El estado de la DNA no es válido")
+        print("El estado de la DNA no es válido, ingrese uno de los siguientes elementos:")
+        for estado in list(diccionario_vencer.keys()):
+            print(estado)
+
     else: 
         id_estado=diccionario_vencer[estado_vencer]
         filtro_estado = driver.find_element(By.ID, id_frm_vencer)
-        prueba_funcional.MoverClick(driver,filtro_estado)
+        acciones_comunes.MoverClick(driver,filtro_estado)
         estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
-        prueba_funcional.MoverClick(driver,estado)
+        acciones_comunes.MoverClick(driver,estado)
         print("Filtrado del estado a vencer de la acreditación exitoso")
 
 
@@ -326,19 +311,19 @@ def Filtrar_fechas_supervision(driver, wait, desde=None, hasta = None):
     if hasta is None:
         if validar_fecha(desde):
             filtro_fecha_desde = wait.until(EC.presence_of_element_located((By.ID, id_frm_fecha_desde)))
-            prueba_funcional.MoverClick(driver,filtro_fecha_desde)
+            acciones_comunes.MoverClick(driver,filtro_fecha_desde)
             filtro_fecha_desde.clear()
             filtro_fecha_desde.send_keys(desde)
-            click_vacio(driver)
+            acciones_comunes.click_vacio(driver)
 
         
     elif desde is None:
         if validar_fecha(hasta):
             filtro_fecha_hasta= wait.until(EC.presence_of_element_located((By.ID, id_frm_fecha_hasta)))
-            prueba_funcional.MoverClick(driver,filtro_fecha_hasta)
+            acciones_comunes.MoverClick(driver,filtro_fecha_hasta)
             filtro_fecha_hasta.clear()
             filtro_fecha_hasta.send_keys(hasta)
-            click_vacio(driver)
+            acciones_comunes.click_vacio(driver)
 
     elif hasta is None and desde is None:
         print("Ingrese una fecha hasta y/o desde")
@@ -347,16 +332,16 @@ def Filtrar_fechas_supervision(driver, wait, desde=None, hasta = None):
         
         if validar_fecha(desde) and validar_fecha(hasta) and validar_fecha_posterior(hasta, desde):
             filtro_fecha_desde = wait.until(EC.presence_of_element_located((By.ID, id_frm_fecha_desde)))
-            prueba_funcional.MoverClick(driver,filtro_fecha_desde)
+            acciones_comunes.MoverClick(driver,filtro_fecha_desde)
             filtro_fecha_desde.clear()
             filtro_fecha_desde.send_keys(desde)
-            click_vacio(driver)
+            acciones_comunes.click_vacio(driver)
 
             filtro_fecha_hasta= wait.until(EC.presence_of_element_located((By.ID, id_frm_fecha_hasta)))
-            prueba_funcional.MoverClick(driver,filtro_fecha_hasta)
+            acciones_comunes.MoverClick(driver,filtro_fecha_hasta)
             filtro_fecha_hasta.clear()
             filtro_fecha_hasta.send_keys(hasta)
-            click_vacio(driver)
+            acciones_comunes.click_vacio(driver)
 
 
 def Filtrar_supervisores(driver, wait, supervisor="NORA"):
@@ -370,9 +355,9 @@ def Filtrar_supervisores(driver, wait, supervisor="NORA"):
     else: 
         id_supervisor=diccionario_supervisores[supervisor]
         filtro_supervisor = driver.find_element(By.ID, id_frm_supervisor)
-        prueba_funcional.MoverClick(driver,filtro_supervisor)
+        acciones_comunes.MoverClick(driver,filtro_supervisor)
         supervisor=wait.until(EC.presence_of_element_located((By.ID, id_supervisor)))
-        prueba_funcional.MoverClick(driver,supervisor)
+        acciones_comunes.MoverClick(driver,supervisor)
         print("Filtrado del supervisor fue exitoso")
 
 
@@ -385,8 +370,8 @@ def Filtrar_supervisores(driver, wait, supervisor="NORA"):
 def Probar():
     driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 5)
-    prueba_funcional.Ingresar_Sistema(driver=driver,wait=wait, user_name="72623744", password="123456$$dan") 
-    prueba_funcional.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre="dna",submodulo_nombre="acreditacion")
+    acciones_comunes.Ingresar_Sistema(driver=driver,wait=wait, user_name="72623744", password="123456$$dan") 
+    acciones_comunes.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre="dna",submodulo_nombre="acreditacion")
     #Filtrar_ubigeo(driver=driver,wait=wait, departamento="AREQUIPA", provincia="AREQUIPA", distrito="QUEQUEÑA")
     #Filtrar_codigo(driver=driver, codigo_DNA="20011")
     #Filtrar_estado_DNA(driver,wait,estado="NO ACREDITADA")

@@ -20,9 +20,25 @@ def MoverClick(driver, elemento):
     mover_mouse.move_to_element(elemento).click().perform()
     time.sleep(1)
 
+# Darle click al vacío para que funcione
 def click_vacio(driver, elemento_vacio ='j_idt22:j_idt24'):
     elemento_vacio = driver.find_element(By.ID,elemento_vacio)
     MoverClick(driver,elemento_vacio)
+    
+
+# Encontrar el ID existente sino retornar nulo.
+def probar_ids(driver, ids):
+    for id in ids:
+        try:
+            elemento=driver.find_element(By.ID,id)
+            return elemento
+        except ElementNotInteractableException:
+            continue
+        except NoSuchElementException:
+            continue
+        except TimeoutException:
+            continue
+    return None
 
 
 def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-web/faces/login.xhtml", user_name="admin", password="123456"):
@@ -97,7 +113,42 @@ def Ingresar_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="dna"):
         submodulo = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="https://ws01.mimp.gob.pe/sisdna-web/faces'+direccion+'listado.xhtml"]')))
         MoverClick(driver,submodulo)
 
+def Ingresar_click(driver, wait, accion=None, ids_elemento=[]):
+    if accion is None:
+        print("Debe ingresar el nombre de la accion")
+    else:
+        try:
+            existe_elemento = probar_xpaths(driver, ids_elemento)
+            if existe_elemento is None:
+                print(f"No se puede encontrar el id en {accion}")
+                return 0
+            else:
+                MoverClick(driver,existe_elemento)
+                print(f"Éxito en la acción: {accion}")
+                return 1
 
+        except Exception as e:
+            print(f"Error en {accion}: ", e)
+            return 0
+
+def Elegir_desplegable(driver, wait, accion=None, estado=None, id_desplegable=None, diccionario_estados = {}):
+    if accion is None:
+        print("Debe ingresar el nombre de la accion")
+    else:
+        try:
+            if estado not in diccionario_estados:
+                print(f"El estado de la DNA en {accion} no es válido")
+            else: 
+                id_estado=diccionario_estados[estado]
+                filtro_estado = driver.find_element(By.ID, id_desplegable)
+                MoverClick(driver,filtro_estado)
+                estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
+                MoverClick(driver,estado)
+                print(f"Filtrado del estado de la DNA en {accion} exitoso")
+        except Exception as e:
+            print(f"Error en el filtrado {accion}: ", e)
+            return 0
+        
 def Prueba_0(driver,wait):
     
     try:
@@ -163,6 +214,7 @@ def probar_ids(driver, ids):
         except TimeoutException:
             continue
     return None
+
 def probar_xpaths(driver, xpaths):
     for xpath in xpaths:
         try:
@@ -194,9 +246,7 @@ def Ingresar_supervision(driver, wait, nueva=False):
 
 
 
-
-
-def Desplegar():
+def Prueba():
     driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 10)
     Ingresar_Sistema(driver=driver,wait=wait)
@@ -209,4 +259,4 @@ def Desplegar():
 
 
 if __name__ == "__main__":
-    Desplegar()
+    Prueba()
