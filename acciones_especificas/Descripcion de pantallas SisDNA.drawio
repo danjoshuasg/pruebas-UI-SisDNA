@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-15T04:38:28.039Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="jA2OWPvIIqsmpEJPEHQo" version="21.6.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-15T04:49:51.883Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="rZkiE_22ixNe0RVWF12z" version="21.6.8" type="github">
   <diagram name="Página-1" id="k3W1t8mwcczcNuwXUa4P">
     <mxGraphModel dx="933" dy="365" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -24,6 +24,21 @@
         </mxCell>
         <mxCell id="7esxd-oq5irvHlFANV0P-8" value="&lt;font data-font-src=&quot;https://fonts.googleapis.com/css?family=Poppins&quot; face=&quot;Poppins&quot;&gt;&lt;b&gt;ELEMENTOS DNA&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="39.55" y="520" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7esxd-oq5irvHlFANV0P-9" value="crear DNA" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;position2=0.73;" vertex="1" parent="1">
+          <mxGeometry x="550" y="305" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7esxd-oq5irvHlFANV0P-10" value="Filtro código" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;position2=0.36;" vertex="1" parent="1">
+          <mxGeometry x="100" y="580" width="110" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="7esxd-oq5irvHlFANV0P-11" value="Filtro ubigeo" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;" vertex="1" parent="1">
+          <mxGeometry x="270" y="570" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7esxd-oq5irvHlFANV0P-12" value="Filtro fecha" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;" vertex="1" parent="1">
+          <mxGeometry x="420" y="570" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7esxd-oq5irvHlFANV0P-13" value="Filtro fecha" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;" vertex="1" parent="1">
+          <mxGeometry x="550" y="570" width="110" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
