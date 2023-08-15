@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-15T05:16:47.645Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="BsLmslTSVgyZ85CNugrL" version="21.6.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-15T05:17:33.030Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="xbE2eQN_9b42vBke1V9P" version="21.6.8" type="github">
   <diagram name="Página-1" id="k3W1t8mwcczcNuwXUa4P">
     <mxGraphModel dx="1760" dy="365" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -25,7 +25,7 @@
         <mxCell id="7esxd-oq5irvHlFANV0P-8" value="&lt;font face=&quot;Poppins&quot;&gt;&lt;b&gt;ELEMENTOS ACREDITACIÓN&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="39.55" y="520" width="190.45" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="7esxd-oq5irvHlFANV0P-9" value="crear DNA" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;position2=0.73;" vertex="1" parent="1">
+        <mxCell id="7esxd-oq5irvHlFANV0P-9" value="crear (DNA)" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;position2=0.73;" vertex="1" parent="1">
           <mxGeometry x="550" y="305" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="7esxd-oq5irvHlFANV0P-10" value="Filtro código" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;position2=0.36;" vertex="1" parent="1">
@@ -43,7 +43,7 @@
         <mxCell id="7esxd-oq5irvHlFANV0P-14" value="Filtra estados (acreditacion vencer)" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;" vertex="1" parent="1">
           <mxGeometry x="670" y="570" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="7esxd-oq5irvHlFANV0P-15" value="Crear acreditacion" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;position2=1;size=10;position=0.5;" vertex="1" parent="1">
+        <mxCell id="7esxd-oq5irvHlFANV0P-15" value="crear (acreditacion)" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=none;base=15;position2=1;size=10;position=0.5;" vertex="1" parent="1">
           <mxGeometry x="420" y="650" width="120" height="50" as="geometry" />
         </mxCell>
         <mxCell id="7esxd-oq5irvHlFANV0P-16" value="&lt;font face=&quot;Poppins&quot;&gt;&lt;b&gt;ELEMENTOS SUPERVISIÓN&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
