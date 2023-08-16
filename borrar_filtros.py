@@ -1,4 +1,4 @@
-import acciones_comunes
+import acciones.acciones_comunes as acciones_comunes
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 

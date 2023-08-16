@@ -1,4 +1,4 @@
-import acciones_comunes
+import acciones.acciones_comunes as acciones_comunes
 import time
 import filtros
 import borrar_filtros

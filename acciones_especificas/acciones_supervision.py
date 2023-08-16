@@ -1,4 +1,4 @@
-import acciones_comunes
+import acciones.acciones_comunes as acciones_comunes
 import filtros
 
 from selenium import webdriver

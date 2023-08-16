@@ -1,6 +1,6 @@
 import time
 import json
-import acciones_comunes
+import acciones.acciones_comunes as acciones_comunes
 
 from datetime import datetime
 from selenium import webdriver
@@ -238,8 +238,6 @@ def Filtrar_encargados(driver, wait, encargado="DAVID ARTEAGA RODRÍGUEZ"):
     n_ids = 82 # Construir una función que extraiga directamente este número o de un json de usuarios dsld.
     seleccionar_elemento_en_desplegable(driver, wait, id_frm_supervisor, n_ids, encargado)
 ##############################################################################################################
-
-
 
 
 def get_users_dsld():
