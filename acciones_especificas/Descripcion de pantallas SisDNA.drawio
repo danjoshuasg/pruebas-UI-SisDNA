@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-08-16T13:46:53.334Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="ex_d7Efv8nT4iihWfFJW" version="21.6.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-16T13:47:38.835Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="FDU3XUn9ezwBhHRcc0rn" version="21.6.8" type="github">
   <diagram name="Página-1" id="k3W1t8mwcczcNuwXUa4P">
-    <mxGraphModel dx="2049" dy="1091" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1687" dy="899" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -610,7 +610,7 @@
         <mxCell id="mbKxhc0ecFNAhyt3cLH0-41" value="Filtrar fecha [send] &lt;br&gt;(%YYYY)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
           <mxGeometry x="81.93000000000008" y="4280" width="131.91" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="mbKxhc0ecFNAhyt3cLH0-43" value="crear [click] &lt;br&gt;(progrmacion)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+        <mxCell id="mbKxhc0ecFNAhyt3cLH0-43" value="crear [click] &lt;br&gt;(participante)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
           <mxGeometry x="878.39" y="4720" width="143.53" height="30" as="geometry" />
         </mxCell>
         <mxCell id="mbKxhc0ecFNAhyt3cLH0-44" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" target="mbKxhc0ecFNAhyt3cLH0-43">
