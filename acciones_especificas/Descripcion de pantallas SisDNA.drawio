@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-08-16T22:51:55.510Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="O2hXDCfGNBwOpNhe7vcX" version="21.6.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-16T22:55:46.448Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="8KzjjvT5u4WfqtEOhShr" version="21.6.8" type="github">
   <diagram name="Página-1" id="k3W1t8mwcczcNuwXUa4P">
-    <mxGraphModel dx="1240" dy="561" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1395" dy="632" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1347,6 +1347,45 @@
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-183" value="DNI autoridad [send]&lt;br&gt;(nueva acreditacion" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
           <mxGeometry x="1290" y="1020" width="120" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-184" value="Institución autoridad [send]&lt;br&gt;(nueva acreditacion)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="1040" width="150" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-185" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="iyKIXOftxtbehzslEsE2-184">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1310" y="1090" as="sourcePoint" />
+            <mxPoint x="1300" y="1065" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-186" value="Cargo autoridad [send]&lt;br&gt;(nueva acreditacion)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1810" y="1040" width="140" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-187" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="iyKIXOftxtbehzslEsE2-186">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1630" y="1090" as="sourcePoint" />
+            <mxPoint x="1440" y="1085" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-189" value="Institución autoridad [send]&lt;br&gt;(nueva acreditacion)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1390" y="1090" width="150" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-190" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="iyKIXOftxtbehzslEsE2-189">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1290" y="1140" as="sourcePoint" />
+            <mxPoint x="1300" y="1065" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-191" value="Institución autoridad [send]&lt;br&gt;(nueva acreditacion)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1699.5" y="1090" width="150" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-192" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="iyKIXOftxtbehzslEsE2-191">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1480" y="1140" as="sourcePoint" />
+            <mxPoint x="1400" y="1135" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iyKIXOftxtbehzslEsE2-193" value="Institución autoridad [send]&lt;br&gt;(nueva acreditacion)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1326.37" y="1150" width="150" height="35" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
