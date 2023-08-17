@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-08-17T21:45:56.885Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="NpF263fAwPfG83tb4CtU" version="21.6.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-17T22:10:55.185Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="PUrmp-ddV7zZhucKCdD1" version="21.6.8" type="github">
   <diagram name="Página-1" id="k3W1t8mwcczcNuwXUa4P">
-    <mxGraphModel dx="2313" dy="891" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="4409" dy="2523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -136,7 +136,7 @@
             <mxPoint x="1325.91" y="1890" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="aZski53jZuXYauSFDb25-71" value="Fecha exp [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="aZski53jZuXYauSFDb25-71" value="Fecha [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="1260" y="1790" width="131.91" height="40" as="geometry" />
         </mxCell>
         <mxCell id="aZski53jZuXYauSFDb25-80" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="aZski53jZuXYauSFDb25-81" edge="1">
@@ -616,7 +616,7 @@
             <mxPoint x="1505.91" y="1890" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-38" value="Hora DNA [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="iyKIXOftxtbehzslEsE2-38" value="Hora [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="1440" y="1790" width="131.91" height="40" as="geometry" />
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-39" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="iyKIXOftxtbehzslEsE2-40" edge="1">
@@ -625,10 +625,10 @@
             <mxPoint x="1985.91" y="1890" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-40" value="Supervisor exp [choose] (Departamento)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="iyKIXOftxtbehzslEsE2-40" value="Supervisor [choose] (Departamento)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="1910" y="1790" width="140" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-41" value="Llenar telefono dna [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="iyKIXOftxtbehzslEsE2-41" value="Teléfono DNA [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="1300" y="2359.39" width="173" height="40" as="geometry" />
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-42" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="iyKIXOftxtbehzslEsE2-41" edge="1">
@@ -637,7 +637,7 @@
             <mxPoint x="1516" y="1840" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-43" value="Llenar correo dna [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="iyKIXOftxtbehzslEsE2-43" value="Correo DNA [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="1677" y="2359.39" width="152" height="40" as="geometry" />
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-44" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="iyKIXOftxtbehzslEsE2-43" edge="1">
@@ -646,7 +646,7 @@
             <mxPoint x="1884" y="1839.39" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-45" value="Llenar horario [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="iyKIXOftxtbehzslEsE2-45" value="Horario DNA [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="2030" y="2359.39" width="131.91" height="40" as="geometry" />
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-46" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="iyKIXOftxtbehzslEsE2-45" edge="1">
@@ -661,11 +661,11 @@
             <mxPoint x="2505.91" y="1860" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-48" value="DNI resp* [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="iyKIXOftxtbehzslEsE2-48" value="DNI Responsable [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="2430" y="1810" width="140" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-49" value="Fecha resp [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-          <mxGeometry x="2630" y="1810" width="131.91" height="40" as="geometry" />
+        <mxCell id="iyKIXOftxtbehzslEsE2-49" value="Fecha Responsable&amp;nbsp;[send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2620" y="1800" width="160" height="50" as="geometry" />
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-50" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="iyKIXOftxtbehzslEsE2-49" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -673,8 +673,8 @@
             <mxPoint x="2510" y="1860" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-51" value="Documento resp [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-          <mxGeometry x="2830" y="1810" width="131.91" height="40" as="geometry" />
+        <mxCell id="iyKIXOftxtbehzslEsE2-51" value="Documento Responsable [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2830" y="1800" width="140" height="50" as="geometry" />
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-52" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="iyKIXOftxtbehzslEsE2-51" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -697,11 +697,11 @@
         <mxCell id="iyKIXOftxtbehzslEsE2-57" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;E&lt;/b&gt;&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="899.74" y="135" width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-58" value="Teléfono resp [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="iyKIXOftxtbehzslEsE2-58" value="Teléfono Responsable [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="3020" y="1810" width="150" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-59" value="Correo resp [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-          <mxGeometry x="3270" y="1810" width="131.91" height="40" as="geometry" />
+        <mxCell id="iyKIXOftxtbehzslEsE2-59" value="Correo Responsable [send] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="3250" y="1810" width="151.91" height="40" as="geometry" />
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-60" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="iyKIXOftxtbehzslEsE2-58" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -715,8 +715,8 @@
             <mxPoint x="3345" y="1850" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="iyKIXOftxtbehzslEsE2-62" value="Instruccion resp [choose] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-          <mxGeometry x="2420" y="2326" width="141.91" height="40" as="geometry" />
+        <mxCell id="iyKIXOftxtbehzslEsE2-62" value="Instruccion Responsable&amp;nbsp;[choose] (nueva supervision)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2370" y="2326" width="191.91" height="40" as="geometry" />
         </mxCell>
         <mxCell id="iyKIXOftxtbehzslEsE2-63" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="iyKIXOftxtbehzslEsE2-62" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
