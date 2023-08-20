@@ -1,4 +1,5 @@
-import acciones_comunes
+import acciones.acciones_comunes as acciones_comunes
+
 import time
 import filtros
 import pandas as pd
@@ -86,7 +87,7 @@ def seleccionar_campo_supervision(driver, wait, campo=None, valor=None):
             
 
 def ingresar_checkbox_supervision(driver, wait, campo=None, valor=None):
-    valor =str(valor)
+
     if campo is None:
         print("Ingrese el campo")
     
@@ -96,9 +97,9 @@ def ingresar_checkbox_supervision(driver, wait, campo=None, valor=None):
         else:
             diccionario_valores = {"PRIVADO":1,"COMPARTIDO":2,"BUENO":1,"REGULAR":2,"MALO":3,"SI":1,"NO":2,"CONFORME":1,"OBSERVADO":2,"NO APLICA":3, 1:1, 2:2, 3:3}
             diccionario_campos_valor = {"local_dna":f"//*[@id='frmNuevo:rbTipoLocal']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]", 
-                                "conservacion_dna":"//*[@id='frmNuevo:rbConserva']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]", 
-                                "comudena_dna":"//*[@id='frmNuevo:rbComudena']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]",
-                                "coordinadora_dna":"//*[@id='frmNuevo:rbCoord']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]"
+                                "conservacion_dna":f"//*[@id='frmNuevo:rbConserva']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]", 
+                                "comudena_dna":f"//*[@id='frmNuevo:rbComudena']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]",
+                                "coordinadora_dna":f"//*[@id='frmNuevo:rbCoord']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]"
                                 }
             if str.isnumeric(campo):
                 diccionario_campos_valor[f"{campo}"] = f"//*[@id='frmNuevo:j_idt233:{str(int(campo)-1)}:j_idt235']/tbody/tr/td[{diccionario_valores[valor]}]/div/div[2]"
@@ -198,17 +199,18 @@ def Prueba():
         inicio = time.time()
         acciones_comunes.Ingresar_Sistema(driver=driver, wait=wait, user_name="72623744", password="123456$$dan") 
         acciones_comunes.Ingresar_Submodulo(driver=driver, wait=wait, modulo_nombre="dna", submodulo_nombre="supervision")
-
-        filtros.Filtrar_supervisores(driver=driver, wait=wait, supervisor="DAVID")
+        supervisores=filtros.get_users_dsld()["supervision"]
+        print(supervisores[0])
+        filtros.Filtrar_encargados(driver=driver, wait=wait, encargado=supervisores[0])
         acciones_comunes.Ingresar_supervision(driver=driver, wait=wait, nueva=True)
 
-        lista_campos_llenar =[#"Fecha_input",
-                              #"Hora_input", 
-                              #"Direccion_DNA_input",
-                              #"Telefono_DNA_input",
-                              #"Correo_DNA_input",
-                              #"Horario_DNA_input",
-                              #"Autoridad_DNA_input",
+        lista_campos_llenar =["Fecha_input",
+                              "Hora_input", 
+                              "Direccion_DNA_input",
+                              "Telefono_DNA_input",
+                              "Correo_DNA_input",
+                              "Horario_DNA_input",
+                              "Autoridad_DNA_input",
                               "Direccion_autoridad_DNA_input",
                               "DNI_responsable_input",
                               "Fecha_responsable_input",
@@ -227,7 +229,7 @@ def Prueba():
 
         seleccionar_supervisor(driver, wait, supervisor="DAVID")
         #ingresar_checkbox_supervision(driver,wait,campo="conservacion_dna",valor=1)
-        ingresar_checkbox_supervision(driver,wait,campo=1,valor=1)
+        ingresar_checkbox_supervision(driver,wait,campo="local_dna",valor=1)
         #opcion = wait.until(EC.presence_of_element_located((By.ID, "frmNuevo:rbTipoLocal:0")))
         # wait_i = WebDriverWait(driver, 10)
         # radio_blanco = wait_i.until(EC.element_to_be_clickable((By.ID, "frmNuevo:rbTipoLocal:0")))
@@ -248,8 +250,9 @@ def Prueba():
             else:
                 ingresar_campo_supervision(driver,wait,campo=campo_lista,valor=str(datos[campo_lista][0]))
         
-        #seleccionar_estado(driver,wait)
-        #seleccionar_modalidad(driver,wait)
+        seleccionar_estado(driver,wait)
+        seleccionar_modalidad(driver,wait)
+        #seleccionar_supervisor(driver, wait, supervisor="DAVID")
         #guardar_supervision(driver,15)
         time.sleep(3)
         final = time.time()
@@ -261,5 +264,4 @@ def Prueba():
 
 if __name__ == "__main__":
     datos = pd.read_excel('campos_supervision_excel.xlsx')
-    print()
     Prueba()

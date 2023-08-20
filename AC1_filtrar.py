@@ -1,4 +1,4 @@
-import acciones_comunes
+import acciones.acciones_comunes as acciones_comunes
 import time
 import filtros
 import borrar_filtros
@@ -19,7 +19,7 @@ def Prueba():
     #filtros.Filtrar_ubigeo(driver=driver,wait=wait,departamento="AMAZONAS",provincia="CHACHAPOYAS", distrito="CHACHAPOYAS")
     #borrar_filtros.Borrar_filtros(driver=driver,wait=wait,filtro="Filtrar_ubigeo")
 
-    filtros.Filtrar_vencer_acreditacion(driver, wait, estado_vencer="POR VENCER")
+    filtros.Filtrar_estado(driver, wait, estado_vencer="POR VENCER")
     filtros.Filtrar_codigo(driver=driver,codigo_DNA="01004")
     #borrar_filtros.Borrar_filtros(driver=driver,wait=wait,filtro="Filtrar_codigo")
 

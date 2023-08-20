@@ -63,16 +63,11 @@ def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-w
 
 ## Ingresar al módulo DNA
 
-# dna_link = wait.until(EC.presence_of_element_located((By.XPATH, "//form[@id='j_idt38:0:j_idt40']/div[2]/ul/li[2]/a")))
-# print(dna_link.text)
-
-# Verificar si estoy entrando al enlace de DNA correctamente:
-
 def Ingresar_Modulo(driver,wait,modulo_nombre="inicio"):
     try:
         modulos_SisDNA ={"inicio":"Inicio","dna":"0","riesgo":"1","mantenimiento":"2","seguridad":"3"}
         if modulo_nombre not in modulos_SisDNA:
-            print("Error al elegir el nombre del módulo, Debe elegir entre:")
+            print(f"No existe el módulo '{modulo_nombre}', Debe elegir entre:")
             for modulo in modulos_SisDNA.keys():
                 print(modulo)
             pass
@@ -104,7 +99,7 @@ def Ingresar_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="dna"):
     
     Ingresar_Modulo(driver,wait,modulo_nombre=modulo_nombre)
     if submodulo_nombre not in submodulos_SisDNA[modulo_nombre]:
-        print("Error al elegir el nombre del submódulo, Debe elegir entre:")
+        print(f"No existe el submódulo '{submodulo_nombre}' en el módulo '{modulo_nombre}', Debe elegir entre:")
         for submodulo in submodulos_SisDNA[modulo_nombre].keys():
             print(submodulo)
         pass
@@ -113,42 +108,50 @@ def Ingresar_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="dna"):
         submodulo = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="https://ws01.mimp.gob.pe/sisdna-web/faces'+direccion+'listado.xhtml"]')))
         MoverClick(driver,submodulo)
 
-def Ingresar_click(driver, wait, accion=None, ids_elemento=[]):
+def Ingresar_click(driver, accion=None, ids_elemento=[], is_xpath=True):
     if accion is None:
         print("Debe ingresar el nombre de la accion")
     else:
         try:
-            existe_elemento = probar_xpaths(driver, ids_elemento)
-            if existe_elemento is None:
-                print(f"No se puede encontrar el id en {accion}")
-                return 0
+            if is_xpath:
+                existe_elemento = probar_xpaths(driver, ids_elemento)
+                if existe_elemento is None:
+                    print(f"No se puede encontrar el id en {accion}")
+                    return 0
+                else:
+                    MoverClick(driver,existe_elemento)
+                    print(f"Éxito en la acción: {accion}")
+                    return 1
             else:
-                MoverClick(driver,existe_elemento)
-                print(f"Éxito en la acción: {accion}")
-                return 1
+                existe_elemento = probar_ids(driver, ids_elemento)
+                if existe_elemento is None:
+                    print(f"No se puede encontrar el id en {accion}")
+                    return 0
+                else:
+                    MoverClick(driver,existe_elemento)
+                    print(f"Éxito en la acción: {accion}")
+                    return 1
 
         except Exception as e:
             print(f"Error en {accion}: ", e)
             return 0
-
-def Elegir_desplegable(driver, wait, accion=None, estado=None, id_desplegable=None, diccionario_estados = {}):
-    if accion is None:
-        print("Debe ingresar el nombre de la accion")
-    else:
-        try:
-            if estado not in diccionario_estados:
-                print(f"El estado de la DNA en {accion} no es válido")
-            else: 
-                id_estado=diccionario_estados[estado]
-                filtro_estado = driver.find_element(By.ID, id_desplegable)
-                MoverClick(driver,filtro_estado)
-                estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
-                MoverClick(driver,estado)
-                print(f"Filtrado del estado de la DNA en {accion} exitoso")
-        except Exception as e:
-            print(f"Error en el filtrado {accion}: ", e)
-            return 0
         
+def seleccionar_desplegable_estado(driver, wait, modulo, id_desplegable, diccionario_estados, estado):
+    try:
+        if estado not in diccionario_estados:
+            print(f"El estado {estado} de la DNA en el módulo de {modulo} no es válido, ingrese los siguientes estados:")
+            for estado in list(diccionario_estados.keys()):
+                print(estado)
+        else:
+            id_estado=diccionario_estados[estado]
+            filtro_estado = driver.find_element(By.ID, id_desplegable)
+            MoverClick(driver,filtro_estado)
+            estado_click=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
+            MoverClick(driver,estado_click)
+            print(f"Éxito en el filtrado del estado {estado} de la DNA en el módulo de {modulo}")
+    except Exception as e:
+        print("Error en seleccionar desplegable estado: ",e)
+
 def Prueba_0(driver,wait):
     
     try:
