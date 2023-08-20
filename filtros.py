@@ -14,8 +14,12 @@ from selenium.common.exceptions import ElementNotInteractableException
 
 import time
 
+#En este script se guardan todos los filtros de todas los módulos del SisDNA
+#Se busca generalizar y en lo posible refactorizar los códigos
 
-def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrito=None, ubigeo_file='ubigeo.json'):
+
+
+def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrito=None, ubigeo_file='pruebas-UI-SisDNA/ubigeo.json'):
     with open(ubigeo_file, 'r', encoding='utf-8') as json_file:
         diccionario_ubigeo = json.load(json_file)
 
