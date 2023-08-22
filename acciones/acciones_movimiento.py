@@ -1,5 +1,11 @@
 
 from selenium import webdriver
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+
+
+
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,6 +17,18 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 import time
+
+##############################################################################################################
+#MOVIMIENTOS EN EL SISTEMA:
+#   1. Ingresar SisDNA.
+#   2. Salir SisDNA.
+#   3. Regresar Home.
+#   4. Ingresar Módulo.
+#   5. Regresar Módulo.
+#   6. Ingresar Submódulo.
+#   7. Regresar Submódulo.
+
+##############################################################################################################
 
 
 def MoverClick(driver, elemento):
@@ -24,7 +42,21 @@ def MoverClick(driver, elemento):
 def click_vacio(driver, elemento_vacio ='j_idt22:j_idt24'):
     elemento_vacio = driver.find_element(By.ID,elemento_vacio)
     MoverClick(driver,elemento_vacio)
-    
+
+def limpiar_enviar(wait, id_campo, valor):
+    input_user = wait.until(EC.visibility_of_element_located((By.ID, id_campo)))
+    input_user.clear()
+    input_user.send_keys(valor)
+
+def boton_respuesta(wait, id_boton, xpath_elemento_esperado):
+    try:
+        buttom = wait.until(EC.visibility_of_element_located((By.ID, id_boton)))
+        buttom.click()
+        respuesta = wait.until(EC.presence_of_element_located((By.XPATH, xpath_elemento_esperado)))
+        print(respuesta.text)
+    except Exception as e:
+        print("El error en boton respuesta es: ",e)
+
 
 # Encontrar el ID existente sino retornar nulo.
 def probar_ids(driver, ids):
@@ -40,25 +72,41 @@ def probar_ids(driver, ids):
             continue
     return None
 
+########################################################################################################
+# 1. Ingresar SisDNA.
 
-def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-web/faces/login.xhtml", user_name="admin", password="123456"):
-    driver.get(url_login)
-    print(driver.title)
-    driver.implicitly_wait(5)
-    
-    input_user = wait.until(EC.visibility_of_element_located((By.ID, "formularioPrincipal:username")))
-    input_user.clear()
-    input_user.send_keys(user_name)
+def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-web/faces/login.xhtml", username="admin", password="123456"):
+    id_username = "formularioPrincipal:username"
+    id_password = "formularioPrincipal:password"
+    id_login_buttom = "formularioPrincipal:j_idt34"
+    xpath_home_element = "//div[@id='j_idt54']/h3"
 
-    input_password = wait.until(EC.visibility_of_element_located((By.ID, "formularioPrincipal:password")))
-    input_password.clear()
-    input_password.send_keys(password)
+    try:
+        driver.get(url_login) #Ingresa al URL
+        driver.implicitly_wait(5) #Se le adiciona un tiempo de espera adicional para esperar respuesta del servidor
+        
+        limpiar_enviar(wait, id_username, username) #Send  username
+        limpiar_enviar(wait, id_password, password) #Send password
+        boton_respuesta(wait, id_login_buttom, xpath_home_element) #Hacerle click al botón y esperar elemento del Home
+        return 1
+    except Exception as e:
+        print("Error en Ingresar al Sistema: ", e)
+        return 0
+########################################################################################################
 
-    button = wait.until(EC.visibility_of_element_located((By.ID, "formularioPrincipal:j_idt34")))
-    button.click()
 
-    respuesta_home = wait.until(EC.presence_of_element_located((By.XPATH, "//div[@id='j_idt54']/h3")))
-    print(respuesta_home.text)
+########################################################################################################
+# 2. Salir del Sistema
+def Salir_Sistema(driver,wait):
+    try:
+        id_logout = "//a[@id='j_idt22:logout']"
+        xpath_login_element = "//form[@id='formularioPrincipal']/div/div[1]/div/h1"
+        MoverClick(driver,id_logout)
+        boton_respuesta(wait, id_logout, xpath_login_element)
+        return 1
+    except Exception as e:
+        print("Error en Salir del Sistema: ",e)
+
 
 
 ## Ingresar al módulo DNA
@@ -250,13 +298,20 @@ def Ingresar_supervision(driver, wait, nueva=False):
 
 
 def Prueba():
+    service = Service()
+    # options = webdriver.ChromeOptions()
+    # driver = webdriver.Chrome(service=service, options=options)
+    
     driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 15)
     Ingresar_Sistema(driver=driver,wait=wait)
-    cont=0
-    cont+=Prueba_0(driver=driver,wait=wait)
-    print("Número de pruebas exitosas: ",cont)
-    driver.implicitly_wait(5)
+    time.sleep(5)
+    Salir_Sistema(driver=driver,wait=wait)
+    time.sleep(5)
+    # cont=0
+    # cont+=Prueba_0(driver=driver,wait=wait)
+    # print("Número de pruebas exitosas: ",cont)
+    # driver.implicitly_wait(5)
     driver.quit()
 
 
