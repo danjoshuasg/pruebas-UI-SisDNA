@@ -31,12 +31,25 @@ import time
 ##############################################################################################################
 
 
-def MoverClick(driver, elemento):
-    mover_mouse = webdriver.ActionChains(driver)
-    mover_mouse.move_to_element(elemento)
-    mover_mouse.perform()
-    mover_mouse.move_to_element(elemento).click().perform()
+def MoverClick(driver, elemento_click):
+    try:
+        mover_mouse = webdriver.ActionChains(driver)
+        mover_mouse.move_to_element(elemento_click).click().perform()
+    except Exception as e:
+        print("Error en mover click: ",e)
     time.sleep(1)
+
+def MoverClick_wait(driver,wait, elemento_click, css_elemento_wait):
+    try:
+        mover_mouse = webdriver.ActionChains(driver)
+        mover_mouse.move_to_element(elemento_click).click().perform()
+        start=time.time()
+        elemento_wait = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_elemento_wait)))
+        time_step=time.time()-start
+        return time_step
+    except Exception as e:
+        print("Error en mover click wait: ",e)
+    
 
 # Darle click al vacío para que funcione
 def click_vacio(driver, elemento_vacio ='j_idt22:j_idt24'):
@@ -48,15 +61,20 @@ def limpiar_enviar(wait, id_campo, valor):
     input_user.clear()
     input_user.send_keys(valor)
 
-def boton_respuesta(wait, id_boton, xpath_elemento_esperado):
+def boton_respuesta_lenta(wait, id_boton, xpath_elemento_esperado):
     try:
         buttom = wait.until(EC.visibility_of_element_located((By.ID, id_boton)))
         buttom.click()
         respuesta = wait.until(EC.presence_of_element_located((By.XPATH, xpath_elemento_esperado)))
-        print(respuesta.text)
+        return 1, respuesta.text
     except Exception as e:
         print("El error en boton respuesta es: ",e)
 
+def boton_respuesta_css(driver, css_id_buttom, css_confirm_window):
+    buttom=driver.find_element(By.CSS_SELECTOR, css_id_buttom)
+    buttom.click()
+    confirm_message=driver.find_element(By.CSS_SELECTOR, css_confirm_window)
+    return 1, confirm_message.text
 
 # Encontrar el ID existente sino retornar nulo.
 def probar_ids(driver, ids):
@@ -72,43 +90,74 @@ def probar_ids(driver, ids):
             continue
     return None
 
-########################################################################################################
-# 1. Ingresar SisDNA.
+# # Encontrar un boton y confirmar la entrada a una nueva ventana.
 
-def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-web/faces/login.xhtml", username="admin", password="123456"):
+def diccionarios_movimientos(nombre_diccionario="modulos"):
+    modulos_SisDNA ={"home":"Inicio",
+                     "dna":"0",
+                     "riesgo":"1",
+                     "mantenimiento":"2",
+                     "seguridad":"3"}
+    submodulos_SisDNA ={
+                    "home":{"url":"Inicio","submodulos":{}, "css_evidencia":"#j_idt54 > h3"},
+                    "dna":{
+                            "url":"0",
+                            "submodulos":{"dna":"/dna/",
+                                          "acreditacion":"/acreditacion/",
+                                          "supervision":"/supervision/",
+                                          "capacitacion programacion":"/capacitacion/curso/",
+                                          "capacitacion ejecucion":"/capacitacion/solicitud/",
+                                          "reportes":"/reporte/"}
+                          }, 
+                    "riesgo":{"recepcion":"/demuna/recepcion/",
+                                "valoracion":"/demuna/valoracion/",
+                                "evaluacion":"/demuna/evaluacion/",
+                                "pti":"/demuna/pti/",
+                                "reportes":"/demuna/reporte/"},
+                    "mantenimiento":{"municipalidades":"/mantenimiento/municipalidad/",
+                                        "catalogo":"/mantenimiento/catalogo/",
+                                        "parametros":"/mantenimiento/parametro/",
+                                        "colegios":"/mantenimiento/colegio/",
+                                        "cargainicial":"/mantenimiento/cargainicial/"},
+                    "seguridad":{"seguridad":"/seguridad/"}}
+    
+    diccionarios = {"modulos":modulos_SisDNA, "submodulos":submodulos_SisDNA}
+    return diccionarios[nombre_diccionario]
+
+########################################################################################################
+# 1. INGRESAR SISDNA.
+def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-web/faces/login.xhtml", id_login_buttom = "formularioPrincipal:j_idt34",xpath_home_element = "//div[@id='j_idt54']/h3",  username="admin", password="123456"):
     id_username = "formularioPrincipal:username"
     id_password = "formularioPrincipal:password"
-    id_login_buttom = "formularioPrincipal:j_idt34"
-    xpath_home_element = "//div[@id='j_idt54']/h3"
-
     try:
         driver.get(url_login) #Ingresa al URL
         driver.implicitly_wait(5) #Se le adiciona un tiempo de espera adicional para esperar respuesta del servidor
-        
         limpiar_enviar(wait, id_username, username) #Send  username
         limpiar_enviar(wait, id_password, password) #Send password
-        boton_respuesta(wait, id_login_buttom, xpath_home_element) #Hacerle click al botón y esperar elemento del Home
-        return 1
+        n , respuesta = boton_respuesta_lenta(wait, id_login_buttom, xpath_home_element) #Hacerle click al botón y esperar elemento del Home
+        print("Ingreso del sistema exitoso: ", respuesta)
+        return n 
     except Exception as e:
-        print("Error en Ingresar al Sistema: ", e)
+        print("Error en el ingreso del sistema: ", e)
         return 0
 ########################################################################################################
 
 
 ########################################################################################################
-# 2. Salir del Sistema
-def Salir_Sistema(driver,wait):
+# 2. SALIR DEL SISTEMA
+def Salir_Sistema(driver, css_logout="#j_idt22\:logout", css_confirm_logout = "#formularioPrincipal > div > div:nth-child(1) > div > h1"):
     try:
-        id_logout = "//a[@id='j_idt22:logout']"
-        xpath_login_element = "//form[@id='formularioPrincipal']/div/div[1]/div/h1"
-        MoverClick(driver,id_logout)
-        boton_respuesta(wait, id_logout, xpath_login_element)
-        return 1
+        n, confirm_message=boton_respuesta_css(driver, css_logout, css_confirm_logout)
+        print("Salida del sistema exitosa: ", confirm_message)
+        return n
     except Exception as e:
-        print("Error en Salir del Sistema: ",e)
+        print("Error en la salida del Sistema: ",e)
+        return 0
 
+########################################################################################################
 
-
+########################################################################################################
+# 3. INGRESAR AL MÓDULO Y SUBMÓDULO
 ## Ingresar al módulo DNA
 
 def Ingresar_Modulo(driver,wait,modulo_nombre="inicio"):
@@ -121,40 +170,44 @@ def Ingresar_Modulo(driver,wait,modulo_nombre="inicio"):
             pass
         else:
             modulo= wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[data-tooltip-content="#tc'+ modulos_SisDNA[modulo_nombre] +'"]')))        
-            mover_mouse = webdriver.ActionChains(driver)
-            mover_mouse.move_to_element(modulo)
-            mover_mouse.perform()
-            mover_mouse.move_to_element(modulo).click().perform()
-            time.sleep(2)
-    except ElementNotInteractableException:
-        print("El elemento no es interactivo o no está dentro del proceso")
-        pass
+            MoverClick(driver,modulo)
+            print(f"Éxito en ingresar al módulo {modulo_nombre}:", modulo.text)
+    except Exception as e:
+        print(f"Error en el ingreso al módulo {modulo_nombre}:", e)
         return 0
-    except TimeoutException:
-        print("El elemento no fue encontrado a tiempo")
-        pass
-        return 0
-    
-    except NoSuchElementException:
-        print("El elemento no fue encontrado en la página")
-        return 0
+########################################################################################################
+# 3. INGRESAR AL MÓDULO Y SUBMÓDULO
 
-def Ingresar_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="dna"):
-    submodulos_SisDNA ={"dna":{"dna":"/dna/","acreditacion":"/acreditacion/","supervision":"/supervision/","capacitacion_programacion":"/capacitacion/curso/","capacitacion_ejecucion":"/capacitacion/solicitud/","reportes":"/reporte/"}, 
-                        "riesgo":{"recepcion":"/demuna/recepcion/","valoracion":"/demuna/valoracion/","evaluacion":"/demuna/evaluacion/","pti":"/demuna/pti/","reportes":"/demuna/reporte/"},
-                        "mantenimiento":{"municipalidades":"/mantenimiento/municipalidad/","catalogo":"/mantenimiento/catalogo/","parametros":"/mantenimiento/parametro/","colegios":"/mantenimiento/colegio/","cargainicial":"/mantenimiento/cargainicial/"},
-                        "seguridad":"/seguridad/"}
+def Ingresar_Modulo_Submodulo(driver, wait, modulo_nombre="home", submodulo_nombre=None):
+    modulos_SisDNA = diccionarios_movimientos("modulos")
+    submodulos_SisDNA = diccionarios_movimientos("submodulos")
     
-    Ingresar_Modulo(driver,wait,modulo_nombre=modulo_nombre)
-    if submodulo_nombre not in submodulos_SisDNA[modulo_nombre]:
-        print(f"No existe el submódulo '{submodulo_nombre}' en el módulo '{modulo_nombre}', Debe elegir entre:")
-        for submodulo in submodulos_SisDNA[modulo_nombre].keys():
+    # Verificar si el módulo existe
+    if modulo_nombre not in modulos_SisDNA:
+        print(f"No existe el módulo '{modulo_nombre}'. Debe elegir entre:")
+        for modulo in modulos_SisDNA.keys():
+            print(modulo)
+        return
+    
+    modulo_selector = f'a[data-tooltip-content="#tc{modulos_SisDNA[modulo_nombre]}"]'
+    modulo = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, modulo_selector)))
+    MoverClick(driver, modulo)
+    print(f"Ingreso al módulo ({modulo_nombre}) exitoso: ", )
+    
+    # Verificar si el submódulo existe
+    if submodulo_nombre and submodulo_nombre not in submodulos_SisDNA.get(modulo_nombre, {}):
+        print(f"No existe el submódulo '{submodulo_nombre}' en el módulo '{modulo_nombre}'. Debe elegir entre:")
+        for submodulo in submodulos_SisDNA.get(modulo_nombre, {}).keys():
             print(submodulo)
-        pass
-    else:
+        return
+    
+    if submodulo_nombre:
         direccion = submodulos_SisDNA[modulo_nombre][submodulo_nombre]
-        submodulo = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="https://ws01.mimp.gob.pe/sisdna-web/faces'+direccion+'listado.xhtml"]')))
-        MoverClick(driver,submodulo)
+        submodulo_selector = f'a[href="https://ws01.mimp.gob.pe/sisdna-web/faces{direccion}listado.xhtml"]'
+        submodulo = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, submodulo_selector)))
+        MoverClick(driver, submodulo)
+        print(f"Ingreso al submódulo ({submodulo_nombre}) exitoso: ")
+
 
 def Ingresar_click(driver, accion=None, ids_elemento=[], is_xpath=True):
     if accion is None:
@@ -303,11 +356,24 @@ def Prueba():
     # driver = webdriver.Chrome(service=service, options=options)
     
     driver = webdriver.Chrome()
+    
     wait = WebDriverWait(driver, 15)
-    Ingresar_Sistema(driver=driver,wait=wait)
+    Ingresar_Sistema(driver,wait,username="72623744",password="123456$$dan")
     time.sleep(5)
-    Salir_Sistema(driver=driver,wait=wait)
+    
+    Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre="riesgo")
     time.sleep(5)
+
+    Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="dna")
+    time.sleep(5)
+
+    Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="acreditacion")
+    time.sleep(5)
+
+    Salir_Sistema(driver)
+    time.sleep(5)
+    #Salir_Sistema(driver=driver,wait=wait)
+    #time.sleep(5)
     # cont=0
     # cont+=Prueba_0(driver=driver,wait=wait)
     # print("Número de pruebas exitosas: ",cont)
