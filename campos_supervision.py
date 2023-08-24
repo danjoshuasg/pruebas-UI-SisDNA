@@ -1,4 +1,5 @@
 import acciones.acciones_comunes as acciones_comunes
+import acciones.acciones_movimiento as acciones_movimiento
 
 import time
 import filtros
