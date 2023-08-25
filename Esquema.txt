@@ -1,0 +1,33 @@
+
+diccionarios_SisDNA
+
+acciones_movimiento:
+	filtrar_usuario
+	Ingresar_Sistema
+	Ingresar_modulo_submodulo
+	Salir_Sistema
+
+acciones_unitarias:
+	acciones auxiliares* (detallar en bloque)
+
+	ingresar_datos(tipo_campo,valor_campo,formato):
+		send
+		choose
+		check
+		check options
+		upload (PDF,JPG)
+
+	extraer_datos(tipo_campo,alojamiento):
+		download (XLSX,PDF)
+
+	borrar_datos(campo):(Si no está campo, emitir warning)
+		
+acciones_modulos:
+	filtrar
+	crear
+	editar
+	eliminar
+
+acciones_SisDNA:
+	id_campo_supervision:
+	
