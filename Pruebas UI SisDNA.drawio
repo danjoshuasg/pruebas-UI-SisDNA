@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-25T16:44:44.984Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" etag="aH0mACcbL19Z1ggUjIoy" version="21.6.9" type="device">
+<mxfile host="app.diagrams.net" modified="2023-08-25T20:07:16.000Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" etag="0U7id4zVdjwiqg2Mvqz-" version="21.6.9" type="device">
   <diagram name="Página-1" id="k3W1t8mwcczcNuwXUa4P">
     <mxGraphModel dx="3218" dy="1083" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -2806,7 +2806,7 @@
             <mxPoint x="3867" y="225" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="3iOOW1AvOm-ggjnkbArr-19" value="Funcion responsable [send] (Integrante DNA- DNA)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="3iOOW1AvOm-ggjnkbArr-19" value="Funcion responsable [choose] (Integrante DNA- DNA)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="3840" y="265" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="3iOOW1AvOm-ggjnkbArr-20" value="DNI [send] (Integrante DNA- DNA)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
@@ -2842,7 +2842,7 @@
             <mxPoint x="4250" y="355" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="3iOOW1AvOm-ggjnkbArr-27" value="Telefono [choose] (Integrante DNA- DNA)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+        <mxCell id="3iOOW1AvOm-ggjnkbArr-27" value="Telefono [send] (Integrante DNA- DNA)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="4235" y="331.88" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="3iOOW1AvOm-ggjnkbArr-28" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" parent="1" target="3iOOW1AvOm-ggjnkbArr-27" edge="1">

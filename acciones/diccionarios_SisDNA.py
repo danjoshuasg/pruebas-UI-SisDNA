@@ -62,7 +62,7 @@ def diccionarios_SisDNA(nombre_diccionario="modulos"):
     return diccionarios[nombre_diccionario]
 
 def diccionarios_DNA(nombre_ventana):
-    diccionario_ventanas={"DNA":DNA,"REGISTRO DNA":REGISTRO_DNA, "ACTUALIZACION DNA":ACTUALIZACION_DNA}
+    diccionario_ventanas={"DNA":DNA,"REGISTRO DNA":REGISTRO_DNA, "ACTUALIZACION DNA":ACTUALIZACION_DNA, "INTEGRANTE DNA":INTEGRANTE_DNA}
     DNA={
         "ingresar_datos":{"Código DNA":{"By":"ID",
                               "elemento_web":"frmBuscar:txtCodigo",
@@ -177,39 +177,206 @@ def diccionarios_DNA(nombre_ventana):
                                 "tipo":"click"}
                         }
     }
-    INTEGRANTE_DNA_DNA = {
+    INTEGRANTE_DNA = {
 
         "ingresar_datos":{"Funcion responsable":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtTipo_label",
+                              "elemento_web":"frmPersona:nidFuncion_label",
                               "tipo":"choose"},
                 "DNI":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtOrigen_label",
-                              "tipo":"choose"},
+                              "elemento_web":"frmPersona:documento",
+                              "tipo":"send"},
                 "Edad":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtEntidad",
+                              "elemento_web":"frmPersona:txtEdad_input",
                               "tipo":"send"},
                 "Telefono":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtNombre",
+                              "elemento_web":"frmPersona:telefono",
                               "tipo":"send"},
                 "Correo":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtNombre",
+                              "elemento_web":"frmPersona:correo",
+                              "tipo":"send"},
+                "Tipo de instrucción":{"By":"ID",
+                              "elemento_web":"frmPersona:txtTipoInstruccion",
                               "tipo":"send"},
                 "Sexo":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtNombre",
+                              "elemento_web":"frmPersona:sexo_label",
+                              "tipo":"choose"},                                                            
+                "Nivel de instrucción":{"By":"ID",
+                              "elemento_web":"frmPersona:txtInstruccion_label",
+                              "tipo":"choose"},
+                "Profesión":{"By":"ID",
+                              "elemento_web":"frmPersona:txtProfesion_label",
+                              "tipo":"choose"},
+                "Colegio profesional":{"By":"ID",
+                              "elemento_web":"frmPersona:txtColegio_label",
+                              "tipo":"choose"},
+                "Nro colegiatura":{"By":"ID",
+                              "elemento_web":"frmPersona:txtColegiatura",
                               "tipo":"send"},
-                "Tipo de instrucción":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtNombre",
+                "Equipo interdisciplinar":{"By":"ID",
+                              "elemento_web":"frmPersona:txtColegiatura",
+                              "tipo":"check"}
+                },
+
+        "funcionales_DNA":{"Guardar":{"By":"ID",
+                                "elemento_web":'frmPersona:j_idt267',
+                                "tipo":"click"},
+                        "Cerrar":{"By":"ID",
+                                "elemento_web":'frmPersona:j_idt269',
+                                "tipo":"click"}
+                        }
+
+    }
+
+    return diccionario_ventanas[nombre_ventana]
+
+def diccionarios_ACREDITACION(nombre_ventana):
+    diccionario_ventanas={"ACREDITACION":ACREDITACION,"REGISTRO ACREDITACION":REGISTRO_ACREDITACION, "ACTUALIZACION DNA":ACTUALIZACION_DNA, "INTEGRANTE DNA":INTEGRANTE_DNA}
+    ACREDITACION={
+        "ingresar_datos":{"Código DNA":{"By":"ID",
+                              "elemento_web":"frmBuscar:txtCodigo",
                               "tipo":"send"},
-                "Tipo de instrucción":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtNombre",
+                "Filtrar ubigeo":{"By":"ID",
+                                  "elemento_web":{"departamento":"frmBuscar:busDepartamento", 
+                                                  "provincia":"frmBuscar:busProvincia"},
+                                  "tipo":"choose"},
+                "Fecha":{"By":"ID",
+                              "elemento_web":"frmBuscar:busFechaIni_input",
                               "tipo":"send"},
-                "Tipo de instrucción":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtNombre",
+                "Estado DNA":{"By":"ID",
+                              "elemento_web":"frmBuscar:txtEstadoBus",
+                              "tipo":"choose"},
+                "Estado proceso":{"By":"ID",
+                              "elemento_web":"frmBuscar:selFiltroAcre_label",
+                              "tipo":"choose"},
+                "Subir PDF":{"By":"ID",
+                              "elemento_web":"formularioPrincipal:tablaDocs:{num_row}:j_idt516",
+                              "tipo":"upload"}                                                                                        
+                },
+        "extraer_datos":{"Descargar PDF":{"By":"ID",
+                                "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt515',
+                                "tipo":"download"},
+                        "Descargar PDF firmado":{"By":"ID",
+                                "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt517',
+                                "tipo":"download"}
+                        },
+        "funcionales_DNA":{"Crear":{"By":"ID",
+                                "elemento_web":'formularioPrincipal:j_idt508',
+                                "tipo":"click"},
+                        "Editar":{"By":"ID",
+                                "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt511',
+                                "tipo":"click"},
+                        "Evaluar":{"By":"ID",
+                                "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt512',
+                                "tipo":"click"},                                
+                        "Eliminar":{"By":"ID",
+                                "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt514',
+                                "tipo":"click"},
+                        "Subsanar":{"By":"ID",
+                                "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt513',
+                                "tipo":"click"}
+                        }
+        }
+    REGISTRO_ACREDITACION = {
+        "ingresar_datos":{"Fecha ingreso":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtFechaIngresoMimp_input",
                               "tipo":"send"},
-                "Tipo de instrucción":{"By":"ID",
-                              "elemento_web":"formREGISTRODNA:txtNombre",
+                "Nro expediente":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtNroExpediente",
+                              "tipo":"send"}, 
+                "DNI autoridad":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtAutoridadDni",
+                              "tipo":"send"},  
+                "Institucion autoridad":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtAutoridadInstitucion",
+                              "tipo":"send"},  
+                "Cargo autoridad":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtAutoridadCargo",
+                              "tipo":"send"},  
+                "Código DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:j_idt86",
+                              "tipo":"send"},  
+                "Nro Ordenanza":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtNroOrdenanza",
                               "tipo":"send"},
-                "Correo":{"By":"ID",
+                "Fecha Ordenanza":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtFecOrdenanza_input",
+                              "tipo":"send"},                                  
+                "Direccion DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtDireccion",
+                              "tipo":"send"},  
+                "Correo DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtCorreo",
+                              "tipo":"send"},
+                "Teléfono DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtTelefono",
+                              "tipo":"send"},
+                "Jefatura DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtGerencia",
+                              "tipo":"send"},
+                "Atención DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtDias",
+                              "tipo":"send"},
+                "Presupuesto DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtPresupuesto_input",
+                              "tipo":"send"},
+                "Nro Ambientes DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtAmbientes_input",
+                              "tipo":"send"},
+                "Nro Ambientes audiencias DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtAmbientesPrivadas_input",
+                              "tipo":"send"},
+
+                "Nro Ambientes audiencias DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtAmbientesPrivadas_input",
+                              "tipo":"send"},
+
+                "Nro Ambientes audiencias DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtAmbientesPrivadas_input",
+                              "tipo":"send"},
+
+                "Tiene ambiente privado":{"By":"ID",
+                              "elemento_web":"frmNuevo:j_idt126",
+                              "tipo":"check"},
+
+                "Tiene equipo de computo":{"By":"ID",
+                              "elemento_web":"frmNuevo:j_idt129",
+                              "tipo":"check"},
+
+                "Tiene impresora":{"By":"ID",
+                              "elemento_web":"frmNuevo:j_idt131",
+                              "tipo":"check"},
+
+                "Tiene internet":{"By":"ID",
+                              "elemento_web":"frmNuevo:j_idt133",
+                              "tipo":"check"},
+
+                "Ambiente seguro documentos":{"By":"ID",
+                              "elemento_web":"frmNuevo:j_idt135",
+                              "tipo":"check"},
+
+                "Accesible NNA y discapacitados":{"By":"ID",
+                              "elemento_web":"frmNuevo:j_idt137",
+                              "tipo":"check"},
+
+                "Tiene espacio de espera":{"By":"ID",
+                                "elemento_web":"frmNuevo:j_idt139",
+                                "tipo":"check"},
+
+                "Estado conservacion":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtEstadoCons:{n_state}",
+                              "tipo":"check options"},                     
+
+
+                "DJ solicitar acreditación":{"By":"ID",
+                              "elemento_web":"formREGISTRODNA:txtEntidad",
+                              "tipo":"upload"},
+                "DJ integrantes DNA":{"By":"ID",
+                              "elemento_web":"formREGISTRODNA:txtNombre",
+                              "tipo":"upload"},
+
+
+
+                "Filtrar ubigeo":{"By":"ID",
                                   "elemento_web":{"departamento":"formREGISTRODNA:txtDepartamento_label", 
                                                   "provincia":"formREGISTRODNA:txtProvincia_label",
                                                   "distrito":"formREGISTRODNA:txtDistrito_label"},
@@ -222,9 +389,110 @@ def diccionarios_DNA(nombre_ventana):
                                 "elemento_web":'formREGISTRODNA:j_idt310',
                                 "tipo":"click"}
                         }
+    }
+
+    ACTUALIZACION_DNA= {
+        "ingresar_datos":{"Número ordenanza":{"By":"ID",
+                              "elemento_web":"formREGISTRODNA:txtTipo_label",
+                              "tipo":"choose"},
+                "Fecha ordenanza":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtNroOrdenanza",
+                              "tipo":"choose"},
+                "Direccion DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtDireccion",
+                              "tipo":"send"},
+                "Correo contacto":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtCorreo",
+                              "tipo":"send"},
+                "Telefono":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtTelefono",
+                              "tipo":"send"},
+                "Jefatura DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtGerencia",
+                              "tipo":"send"},
+                "Atención DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtDias",
+                              "tipo":"send"},
+                "Fecha acreditacion":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtFecAcreditacion_input",
+                              "tipo":"send"},
+                "Doc acreditacion":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtResAcreditacion",
+                              "tipo":"send"},
+                "Fecha supervision":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtFecSupervision_input",
+                              "tipo":"send"},
+                "Estado DNA":{"By":"ID",
+                              "elemento_web":"frmNuevo:selEstadoDna_label",
+                              "tipo":"choose"},
+                "Observaciones":{"By":"ID",
+                              "elemento_web":"frmNuevo:txtobservaciones",
+                              "tipo":"send"}
+                },
+        "funcionales_DNA":{"Nuevo integrante DNA":{"By":"ID",
+                                "elemento_web":'frmNuevo:j_idt137',
+                                "tipo":"click"},
+                        "Editar integrante DNA":{"By":"ID",
+                                "elemento_web":'frmNuevo:tablaEquipo:{num_row}:j_idt140',
+                                "tipo":"click"},
+                        "Eliminar integrante DNA":{"By":"ID",
+                                "elemento_web":'frmNuevo:tablaEquipo:{num_row}:j_idt141',
+                                "tipo":"click"},
+                        "Guardar":{"By":"ID",
+                                "elemento_web":'frmNuevo:j_idt153',
+                                "tipo":"click"}
+                        }
+    }
+    INTEGRANTE_DNA = {
+
+        "ingresar_datos":{"Funcion responsable":{"By":"ID",
+                              "elemento_web":"frmPersona:nidFuncion_label",
+                              "tipo":"choose"},
+                "DNI":{"By":"ID",
+                              "elemento_web":"frmPersona:documento",
+                              "tipo":"send"},
+                "Edad":{"By":"ID",
+                              "elemento_web":"frmPersona:txtEdad_input",
+                              "tipo":"send"},
+                "Telefono":{"By":"ID",
+                              "elemento_web":"frmPersona:telefono",
+                              "tipo":"send"},
+                "Correo":{"By":"ID",
+                              "elemento_web":"frmPersona:correo",
+                              "tipo":"send"},
+                "Tipo de instrucción":{"By":"ID",
+                              "elemento_web":"frmPersona:txtTipoInstruccion",
+                              "tipo":"send"},
+                "Sexo":{"By":"ID",
+                              "elemento_web":"frmPersona:sexo_label",
+                              "tipo":"choose"},                                                            
+                "Nivel de instrucción":{"By":"ID",
+                              "elemento_web":"frmPersona:txtInstruccion_label",
+                              "tipo":"choose"},
+                "Profesión":{"By":"ID",
+                              "elemento_web":"frmPersona:txtProfesion_label",
+                              "tipo":"choose"},
+                "Colegio profesional":{"By":"ID",
+                              "elemento_web":"frmPersona:txtColegio_label",
+                              "tipo":"choose"},
+                "Nro colegiatura":{"By":"ID",
+                              "elemento_web":"frmPersona:txtColegiatura",
+                              "tipo":"send"},
+                "Equipo interdisciplinar":{"By":"ID",
+                              "elemento_web":"frmPersona:txtColegiatura",
+                              "tipo":"check"}
+                },
+
+        "funcionales_DNA":{"Guardar":{"By":"ID",
+                                "elemento_web":'frmPersona:j_idt267',
+                                "tipo":"click"},
+                        "Cerrar":{"By":"ID",
+                                "elemento_web":'frmPersona:j_idt269',
+                                "tipo":"click"}
+                        }
 
     }
-        
+
     return diccionario_ventanas[nombre_ventana]
 
 def diccionarios_acreditacion(nombre_campo):

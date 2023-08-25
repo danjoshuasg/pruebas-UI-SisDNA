@@ -245,7 +245,7 @@ def Prueba():
     Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre="seguridad",submodulo_nombre="usuarios")
     time.sleep(5)
 
-    Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre="riesgo",submodulo_nombre="dna")
+    Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="acreditacion")
     time.sleep(5)
 
     Salir_Sistema(driver)
