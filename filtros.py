@@ -1,6 +1,6 @@
 import time
 import json
-import acciones.acciones_comunes as acciones_comunes
+import acciones.acciones_unitarias as acciones_unitarias
 
 from datetime import datetime
 from selenium import webdriver
@@ -54,12 +54,12 @@ def seleccionar_elemento_en_desplegable(driver, wait, id_desplegable, n_ids, ele
                 id_elemento_encontrado.append(i)
         id_elemento_encontrado = " ".join(id_elemento_encontrado)
 
-        acciones_comunes.MoverClick(driver,filtro)
+        acciones_unitarias.MoverClick(driver,filtro)
         for id in range(n_ids):
             elemento_encontrado = wait.until(EC.presence_of_element_located((By.ID, id_elemento_encontrado+"_"+str(id))))
             if elemento_encontrado.text == elemento_buscado:
                 print(elemento_encontrado.text)
-                acciones_comunes.MoverClick(driver,elemento_encontrado)
+                acciones_unitarias.MoverClick(driver,elemento_encontrado)
                 break
     except TimeoutException:
         print("No se encuentra el filtro de distrito, por favor elimínelo de su búsqueda.")
@@ -108,13 +108,13 @@ def Filtrar_ubigeo(driver, wait, departamento="Amazonas",provincia=None, distrit
 # Funciones auxiliares
 
 def click_send(driver, nombre_campo, ids_input , input):
-    id_input_valido = acciones_comunes.probar_ids(driver,ids_input)
+    id_input_valido = acciones_unitarias.probar_ids(driver,ids_input)
     if id_input_valido is None:
         print(f"El ID del campo {nombre_campo } no fue encontrado")
     else:    
         id_input_valido.clear()
         id_input_valido.send_keys(input)
-        acciones_comunes.click_vacio(driver)
+        acciones_unitarias.click_vacio(driver)
         print(f"Éxito: Enviar {input} al campo '{nombre_campo}'")
 
 # Función principal
@@ -137,7 +137,7 @@ def Filtrar_estado(driver, wait, submodulo="acreditacion", estado="ACREDITADA"):
             diccionario_estados ={"NO ACREDITADA":"frmBuscar:txtEstadoBus_1", 
                           "NO OPERATIVA":"frmBuscar:txtEstadoBus_2", 
                           "ACREDITADA":"frmBuscar:txtEstadoBus_3"}
-            acciones_comunes.seleccionar_desplegable_estado(driver,wait,submodulo,id_desplegable, diccionario_estados, estado)
+            acciones_unitarias.seleccionar_desplegable_estado(driver,wait,submodulo,id_desplegable, diccionario_estados, estado)
 
         elif submodulo=="acreditacion":
             id_desplegable = "frmBuscar:txtEstadoBus"
@@ -146,12 +146,12 @@ def Filtrar_estado(driver, wait, submodulo="acreditacion", estado="ACREDITADA"):
                                 "EVALUACIÓN DE SUBSANACIÓN":"frmBuscar:txtEstadoBus_3", 
                                 "ACREDITADA":"frmBuscar:txtEstadoBus_4", 
                                 "DENEGADA":"frmBuscar:txtEstadoBus_5"}
-            acciones_comunes.seleccionar_desplegable_estado(driver,wait,submodulo,id_desplegable, diccionario_estados, estado)
+            acciones_unitarias.seleccionar_desplegable_estado(driver,wait,submodulo,id_desplegable, diccionario_estados, estado)
         
         elif submodulo=="acreditacion vencer":
             id_desplegable="frmBuscar:selFiltroAcre_label"
             diccionario_estados={"POR VENCER":"frmBuscar:selFiltroAcre_0","TODAS":"frmBuscar:selFiltroAcre_1"}
-            acciones_comunes.seleccionar_desplegable_estado(driver,wait,submodulo,id_desplegable, diccionario_estados, estado)
+            acciones_unitarias.seleccionar_desplegable_estado(driver,wait,submodulo,id_desplegable, diccionario_estados, estado)
             
         elif submodulo=="supervision proceso":
             id_desplegable = ""
@@ -161,7 +161,7 @@ def Filtrar_estado(driver, wait, submodulo="acreditacion", estado="ACREDITADA"):
         elif submodulo=="supervision proceso":
             id_desplegable = "frmBuscar:busEstado_label"
             diccionario_estados ={"CONCLUIDO":"frmBuscar:busEstado_1", "EN PROCESO":"frmBuscar:busEstado_2"}
-            acciones_comunes.seleccionar_desplegable_estado(driver,wait,submodulo,id_desplegable, diccionario_estados, estado)
+            acciones_unitarias.seleccionar_desplegable_estado(driver,wait,submodulo,id_desplegable, diccionario_estados, estado)
 
         
 
@@ -253,8 +253,8 @@ def Probar(user = "72623744", password= "123456$$dan", modulo_nombre="dna", subm
     wait = WebDriverWait(driver, 5)
     diccionario_encargados = get_users_dsld()
     #encargado = diccionario_encargados[submodulo_nombre][id_encargado]
-    acciones_comunes.Ingresar_Sistema(driver=driver,wait=wait, user_name=user, password=password) 
-    acciones_comunes.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre=modulo_nombre,submodulo_nombre=submodulo_nombre)
+    acciones_unitarias.Ingresar_Sistema(driver=driver,wait=wait, user_name=user, password=password) 
+    acciones_unitarias.Ingresar_Submodulo(driver=driver,wait=wait, modulo_nombre=modulo_nombre,submodulo_nombre=submodulo_nombre)
     if test_id == 1:
         Filtrar_codigo(driver=driver, codigo_DNA="01006")
     elif test_id == 2:

@@ -1,4 +1,4 @@
-import acciones.acciones_comunes as acciones_comunes
+import acciones.acciones_unitarias as acciones_unitarias
 import acciones.acciones_movimiento as acciones_movimiento
 
 import time
@@ -25,7 +25,7 @@ wait = WebDriverWait(driver, 15)
 #Ingresar Colegiatura Responsable
 
 def ingresar_campo_supervision(driver, wait, campo=None, valor =None):
-    diccionario_inputs={"Fecha_input":["frmNuevo:txtFecha_input",0],
+    diccionario_inputs={"Fecha_input":["frmNuevo:txtFecha_input",0], #id_campo, tipo_entrada
                         "Hora_input":["frmNuevo:txtHora_input",1],
                         #DNA
                         "Direccion_DNA_input":["frmNuevo:j_idt80",1],
@@ -63,12 +63,12 @@ def ingresar_campo_supervision(driver, wait, campo=None, valor =None):
                 print(f"No se modificó el campo {campo}")
             else:
                 filtro = wait.until(EC.presence_of_element_located((By.ID, id_frm)))
-                acciones_comunes.MoverClick(driver,filtro) #click
+                acciones_unitarias.MoverClick(driver,filtro) #click
                 if diccionario_inputs[campo][1] >0:
                     filtro.clear()
                 #time.sleep(2)
                 filtro.send_keys(valor)
-                acciones_comunes.click_vacio(driver)
+                acciones_unitarias.click_vacio(driver)
                 print(f"Se cambió el/la {campo} en la ficha de supervisión")
     
     except StaleElementReferenceException:
@@ -119,9 +119,9 @@ def seleccionar_estado(driver,wait,estado="EN PROCESO"):
     else: 
         id_estado=diccionario_estados[estado]
         filtro_estado = driver.find_element(By.ID, id_frm_estado)
-        acciones_comunes.MoverClick(driver,filtro_estado)
+        acciones_unitarias.MoverClick(driver,filtro_estado)
         estado=wait.until(EC.presence_of_element_located((By.ID, id_estado)))
-        acciones_comunes.MoverClick(driver,estado)
+        acciones_unitarias.MoverClick(driver,estado)
         print("Filtrado del estado de la DNA exitoso")
     
 def seleccionar_supervisor(driver, wait, supervisor="NORA"):
@@ -136,9 +136,9 @@ def seleccionar_supervisor(driver, wait, supervisor="NORA"):
         else: 
             id_supervisor=diccionario_supervisores[supervisor]
             filtro_supervisor = driver.find_element(By.ID, id_frm_supervisor)
-            acciones_comunes.MoverClick(driver,filtro_supervisor)
+            acciones_unitarias.MoverClick(driver,filtro_supervisor)
             supervisor=wait.until(EC.presence_of_element_located((By.ID, id_supervisor)))
-            acciones_comunes.MoverClick(driver,supervisor)
+            acciones_unitarias.MoverClick(driver,supervisor)
             print("Filtrado del supervisor fue exitoso")
 
     except ElementNotInteractableException:
@@ -163,9 +163,9 @@ def seleccionar_modalidad(driver, wait, modalidad="PRESENCIAL"):
     else: 
         id_modalidad=diccionario_supervisores[modalidad]
         filtro_modalidad = driver.find_element(By.ID, id_frm_modalidad)
-        acciones_comunes.MoverClick(driver,filtro_modalidad)
+        acciones_unitarias.MoverClick(driver,filtro_modalidad)
         modalidad=wait.until(EC.presence_of_element_located((By.ID, id_modalidad)))
-        acciones_comunes.MoverClick(driver,modalidad)
+        acciones_unitarias.MoverClick(driver,modalidad)
         print("Filtrado de la modalidad fue exitoso")
 
 
@@ -178,9 +178,9 @@ def seleccionar_modalidad(driver, wait, modalidad="PRESENCIAL"):
     else: 
         id_modalidad=diccionario_supervisores[modalidad]
         filtro_modalidad = driver.find_element(By.ID, id_frm_modalidad)
-        acciones_comunes.MoverClick(driver,filtro_modalidad)
+        acciones_unitarias.MoverClick(driver,filtro_modalidad)
         modalidad=wait.until(EC.presence_of_element_located((By.ID, id_modalidad)))
-        acciones_comunes.MoverClick(driver,modalidad)
+        acciones_unitarias.MoverClick(driver,modalidad)
         print("Filtrado de la modalidad fue exitoso")
 
 
@@ -189,21 +189,20 @@ def guardar_supervision(driver, tiempo_espera=20):
     wait_guardado = WebDriverWait(driver, tiempo_espera)
     id_buttom_guardar ="frmNuevo:j_idt298"
     buttom = driver.find_element(By.ID, id_buttom_guardar)
-    acciones_comunes.MoverClick(driver,buttom)
+    acciones_unitarias.MoverClick(driver,buttom)
     titulo_tabla = wait_guardado.until(EC.presence_of_element_located((By.ID, "//*[@id='frmBuscar:j_idt301']/div/span")))
     print(titulo_tabla.text)
     print("Se guardó con éxito la ficha")
 
-def Prueba():
-    datos = pd.read_excel('campos_supervision_excel.xlsx')
+def Prueba(datos):
     try:
         inicio = time.time()
-        acciones_comunes.Ingresar_Sistema(driver=driver, wait=wait, user_name="72623744", password="123456$$dan") 
-        acciones_comunes.Ingresar_Submodulo(driver=driver, wait=wait, modulo_nombre="dna", submodulo_nombre="supervision")
+        acciones_unitarias.Ingresar_Sistema(driver=driver, wait=wait, user_name="72623744", password="123456$$dan") 
+        acciones_unitarias.Ingresar_Submodulo(driver=driver, wait=wait, modulo_nombre="dna", submodulo_nombre="supervision")
         supervisores=filtros.get_users_dsld()["supervision"]
         print(supervisores[0])
         filtros.Filtrar_encargados(driver=driver, wait=wait, encargado=supervisores[0])
-        acciones_comunes.Ingresar_supervision(driver=driver, wait=wait, nueva=True)
+        acciones_unitarias.Ingresar_supervision(driver=driver, wait=wait, nueva=True)
 
         lista_campos_llenar =["Fecha_input",
                               "Hora_input", 
@@ -265,4 +264,4 @@ def Prueba():
 
 if __name__ == "__main__":
     datos = pd.read_excel('campos_supervision_excel.xlsx')
-    Prueba()
+    Prueba(datos)
