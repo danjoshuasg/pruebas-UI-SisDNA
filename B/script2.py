@@ -15,7 +15,6 @@ def Proof(driver,wait):
     acciones_movimiento.Ingresar_Sistema(driver,wait)
     driver.quit()
 
-
 driver = webdriver.Chrome()
 wait = WebDriverWait(driver,10)
 Proof(driver,wait)

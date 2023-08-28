@@ -1,3 +1,5 @@
+import acciones_movimiento
+import diccionarios_SisDNA
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -154,9 +156,9 @@ def accion_send(driver, diccionario_campo, valor_campo):
 def elemento_presente(wait, elemento_web, By_name=By.ID):
     try:
         elemento=wait.until(EC.presence_of_element_located((By_name, elemento_web)))
-        return elemento, True
+        return elemento
     except:
-        return None, False
+        return None
 
 def registrar_opciones(driver,wait, diccionario_campo):
     try: 
@@ -165,11 +167,6 @@ def registrar_opciones(driver,wait, diccionario_campo):
 
         campo_web = diccionario_campo["elemento_web"]
         by = diccionario_campo["By"]
-        campo_web.split("")
-
-        #Abrir el desplegable
-        filtro_campo = wait.until(EC.presence_of_element_located((by, campo_web)))
-        MoverClick(driver, filtro_campo)
 
         #Input: frmPersona:txtColegio_label | Output: frmPersona:txtColegio_ (opcion formato)
         string_eliminado = ["label"]
@@ -181,13 +178,16 @@ def registrar_opciones(driver,wait, diccionario_campo):
                 opcion_formato.append(i)
         opcion_formato = " ".join(opcion_formato)
 
+        #Abrir el desplegable
+        filtro_campo = wait.until(EC.presence_of_element_located((by, campo_web)))
+        MoverClick(driver, filtro_campo)
+
         #Input: frmPersona:txtColegio_ | Output: {"Texto 1":frmPersona:txtColegio_1, "Texto 2":frmPersona:txtColegio_2 ... "Texto 3": frmPersona:txtColegio_n} (Diccionario de opciones)
         for i in range(50): # Máximo número de opciones a buscar dentro de un desplegable
 
             opcion_web = opcion_formato+str(i)
-            opcion, validar_opcion = elemento_presente(wait, opcion_web, By_name=by)
-
-            if validar_opcion:
+            opcion = elemento_presente(wait, opcion_web, By_name=by)
+            if opcion:
                 opciones[opcion.text] = {"By":by,"elemento_web":opcion_web,"tipo":"click"}
             else:
                 print("No se encontraron más opciones")
@@ -201,29 +201,30 @@ def registrar_opciones(driver,wait, diccionario_campo):
 
 def accion_choose(driver, wait, diccionario_campo, valor_opcion=1):
     try:
-        validar_tipo(diccionario_campo,"choose")
-        by = diccionario_campo["By"]
-        elemento_web = diccionario_campo["elemento_web"]
-        if by == "XPATH":
-            campo = driver.find_element(By.XPATH,elemento_web)
-            clean_send(driver,campo, valor_opcion)
-
-        elif by == "ID":
-            campo = driver.find_element(By.ID,elemento_web)
-            clean_send(driver,campo, valor_opcion)
-
-        else:
-            print(f"No está registrado el tipo de By.{by} en la funcion accion_send") 
-
+        registrar_opciones(driver, wait, diccionario_campo)
     except Exception as e:
         print("Error en 'accion choose': ",e)
 
 ######################################################################
 
-def Prueba():
-    pass
+def Prueba(driver,wait):
+    acciones_movimiento.Ingresar_Sistema(driver,wait)
+    acciones_movimiento.Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="dna")
+    # Si elijo el submodulo "dna" debo jalar inmediatamente el diccionario de las ventanas "diccionarios_DNA"
+    diccionario_ventanas_submodulo = ["DNA","ACREDITACION","SUPERVISION","CAPACITACION"]
+    # Si elijo una venta de DNA tipo "DNA" debo jalar los campos con las funcionaes que puedo realizar dentro 
+    lista_ventanas_DNA= diccionarios_SisDNA.diccionarios_DNA()
 
+    diccionario_ventana = diccionarios_SisDNA.diccionarios_DNA(lista_ventanas_DNA[0])
 
+    lista_operaciones = list(diccionario_ventana.keys())
+
+    diccionario_operaciones = diccionario_ventana[lista_operaciones[0]]
+
+    print(list(diccionario_operaciones.key()))
+    acciones_movimiento.Salir_Sistema(driver)
 
 if __name__ == "__main__":
-    Prueba()
+    driver = webdriver.Chrome()
+    wait = WebDriverWait(driver, 15)
+    Prueba(driver,wait)

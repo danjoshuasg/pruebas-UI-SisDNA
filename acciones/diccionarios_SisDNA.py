@@ -61,8 +61,7 @@ def diccionarios_SisDNA(nombre_diccionario="modulos"):
     diccionarios = {"navegacion":navegacion_SisDNA}
     return diccionarios[nombre_diccionario]
 
-def diccionarios_DNA(nombre_ventana):
-    diccionario_ventanas={"DNA":DNA,"REGISTRO DNA":REGISTRO_DNA, "ACTUALIZACION DNA":ACTUALIZACION_DNA, "INTEGRANTE DNA":INTEGRANTE_DNA}
+def diccionarios_DNA(nombre_ventana=None):
     DNA={
         "ingresar_datos":{"Código DNA":{"By":By.ID,
                               "elemento_web":"frmBuscar:txtCodigo",
@@ -124,7 +123,6 @@ def diccionarios_DNA(nombre_ventana):
                                 "tipo":"click"}
                         }
     }
-
     ACTUALIZACION_DNA= {
         "ingresar_datos":{"Número ordenanza":{"By":By.ID,
                               "elemento_web":"formREGISTRODNA:txtTipo_label",
@@ -227,8 +225,13 @@ def diccionarios_DNA(nombre_ventana):
 
     }
 
-    return diccionario_ventanas[nombre_ventana]
+    diccionario_ventanas={"DNA":DNA,"REGISTRO DNA":REGISTRO_DNA, "ACTUALIZACION DNA":ACTUALIZACION_DNA, "INTEGRANTE DNA":INTEGRANTE_DNA}
 
+    if nombre_ventana:
+        return diccionario_ventanas[nombre_ventana]
+    else:
+        return list(diccionario_ventanas.keys())
+    
 def diccionarios_ACREDITACION(nombre_ventana):
 
 
@@ -888,17 +891,12 @@ def diccionarios_SUPERVISION(nombre_ventana):
         }
     return diccionario_ventanas[nombre_ventana]
 
-def diccionarios_capacitacion(etapa_capacitacion, ):
+def diccionarios_SEGURIDAD(etapa_capacitacion):
     print("Diccionario de campos DNA")
 
-def diccionarios_supervision(etapa_capacitacion, ):
+def diccionarios_MANTENIMIENTO(etapa_capacitacion):
     print("Diccionario de campos DNA")
 
-def diccionarios_seguridad(etapa_capacitacion, ):
-    print("Diccionario de campos DNA")
-
-def diccionarios_catalogo(etapa_capacitacion, ):
-    print("Diccionario de campos DNA")
 
 if __name__ == "__main__":
     diccionarios_SisDNA()
