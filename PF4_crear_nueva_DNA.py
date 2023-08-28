@@ -23,7 +23,9 @@ submodulo="acreditacion"
 ventana = "acreditacion"
 acciones_movimientos.Ingresar_Modulo_Submodulo(driver, wait, modulo_nombre="dna", submodulo_nombre=submodulo)
 
-diccionario=diccionarios.diccionarios_ACREDITACION(ventana) 
+diccionario=diccionarios.diccionarios_ACREDITACION(ventana)
+
+
 for i in list(diccionario['ingresar_datos'].keys()):
     print(i)
     by =diccionario['ingresar_datos'][i]["By"]

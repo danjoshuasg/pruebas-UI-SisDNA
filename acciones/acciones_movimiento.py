@@ -1,6 +1,6 @@
 
 from selenium import webdriver
-from selenium import webdriver
+
 
 # from pruebas-UI-SisDNA.diccionarios.diccionarios_SisDNA import diccionarios_SisDNA
 

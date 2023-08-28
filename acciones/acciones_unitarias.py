@@ -41,101 +41,7 @@ def probar_ids(driver, ids):
     return None
 
 
-def Ingresar_Sistema(driver,wait, url_login = "https://ws01.mimp.gob.pe/sisdna-web/faces/login.xhtml", user_name="admin", password="123456"):
-    driver.get(url_login)
-    print(driver.title)
-    driver.implicitly_wait(5)
-    
-    input_user = wait.until(EC.visibility_of_element_located((By.ID, "formularioPrincipal:username")))
-    input_user.clear()
-    input_user.send_keys(user_name)
 
-    input_password = wait.until(EC.visibility_of_element_located((By.ID, "formularioPrincipal:password")))
-    input_password.clear()
-    input_password.send_keys(password)
-
-    button = wait.until(EC.visibility_of_element_located((By.ID, "formularioPrincipal:j_idt34")))
-    button.click()
-
-    respuesta_home = wait.until(EC.presence_of_element_located((By.XPATH, "//div[@id='j_idt54']/h3")))
-    print(respuesta_home.text)
-
-
-## Ingresar al módulo DNA
-
-def Ingresar_Modulo(driver,wait,modulo_nombre="inicio"):
-    try:
-        modulos_SisDNA ={"inicio":"Inicio","dna":"0","riesgo":"1","mantenimiento":"2","seguridad":"3"}
-        if modulo_nombre not in modulos_SisDNA:
-            print(f"No existe el módulo '{modulo_nombre}', Debe elegir entre:")
-            for modulo in modulos_SisDNA.keys():
-                print(modulo)
-            pass
-        else:
-            modulo= wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[data-tooltip-content="#tc'+ modulos_SisDNA[modulo_nombre] +'"]')))        
-            mover_mouse = webdriver.ActionChains(driver)
-            mover_mouse.move_to_element(modulo)
-            mover_mouse.perform()
-            mover_mouse.move_to_element(modulo).click().perform()
-            time.sleep(2)
-    except ElementNotInteractableException:
-        print("El elemento no es interactivo o no está dentro del proceso")
-        pass
-        return 0
-    except TimeoutException:
-        print("El elemento no fue encontrado a tiempo")
-        pass
-        return 0
-    
-    except NoSuchElementException:
-        print("El elemento no fue encontrado en la página")
-        return 0
-
-def Ingresar_Submodulo(driver,wait,modulo_nombre="dna",submodulo_nombre="dna"):
-    submodulos_SisDNA ={"dna":{"dna":"/dna/","acreditacion":"/acreditacion/","supervision":"/supervision/","capacitacion_programacion":"/capacitacion/curso/","capacitacion_ejecucion":"/capacitacion/solicitud/","reportes":"/reporte/"}, 
-                        "riesgo":{"recepcion":"/demuna/recepcion/","valoracion":"/demuna/valoracion/","evaluacion":"/demuna/evaluacion/","pti":"/demuna/pti/","reportes":"/demuna/reporte/"},
-                        "mantenimiento":{"municipalidades":"/mantenimiento/municipalidad/","catalogo":"/mantenimiento/catalogo/","parametros":"/mantenimiento/parametro/","colegios":"/mantenimiento/colegio/","cargainicial":"/mantenimiento/cargainicial/"},
-                        "seguridad":"/seguridad/"}
-    
-    Ingresar_Modulo(driver,wait,modulo_nombre=modulo_nombre)
-    if submodulo_nombre not in submodulos_SisDNA[modulo_nombre]:
-        print(f"No existe el submódulo '{submodulo_nombre}' en el módulo '{modulo_nombre}', Debe elegir entre:")
-        for submodulo in submodulos_SisDNA[modulo_nombre].keys():
-            print(submodulo)
-        pass
-    else:
-        direccion = submodulos_SisDNA[modulo_nombre][submodulo_nombre]
-        submodulo = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="https://ws01.mimp.gob.pe/sisdna-web/faces'+direccion+'listado.xhtml"]')))
-        MoverClick(driver,submodulo)
-
-def Ingresar_click(driver, accion=None, ids_elemento=[], is_xpath=True):
-    if accion is None:
-        print("Debe ingresar el nombre de la accion")
-    else:
-        try:
-            if is_xpath:
-                existe_elemento = probar_xpaths(driver, ids_elemento)
-                if existe_elemento is None:
-                    print(f"No se puede encontrar el id en {accion}")
-                    return 0
-                else:
-                    MoverClick(driver,existe_elemento)
-                    print(f"Éxito en la acción: {accion}")
-                    return 1
-            else:
-                existe_elemento = probar_ids(driver, ids_elemento)
-                if existe_elemento is None:
-                    print(f"No se puede encontrar el id en {accion}")
-                    return 0
-                else:
-                    MoverClick(driver,existe_elemento)
-                    print(f"Éxito en la acción: {accion}")
-                    return 1
-
-        except Exception as e:
-            print(f"Error en {accion}: ", e)
-            return 0
-        
 def seleccionar_desplegable_estado(driver, wait, modulo, id_desplegable, diccionario_estados, estado):
     try:
         if estado not in diccionario_estados:
@@ -152,58 +58,6 @@ def seleccionar_desplegable_estado(driver, wait, modulo, id_desplegable, diccion
     except Exception as e:
         print("Error en seleccionar desplegable estado: ",e)
 
-def Prueba_0(driver,wait):
-    
-    try:
-        # Mover mouse a la Gestión de DNA
-        Ingresar_Modulo(driver=driver, wait=wait, modulo_nombre="dna")
-
-        # Mover a DNA
-        humanito_DNA = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a[href="https://ws01.mimp.gob.pe/sisdna-web/faces/dna/listado.xhtml"]')))
-        MoverClick(driver,humanito_DNA)
-
-        # Seleccionar un departamento en el filtro ("Amazonas")
-        filtro_departamento = wait.until(EC.presence_of_element_located((By.ID, 'frmBuscar:busDepartamento_label')))
-        MoverClick(driver,filtro_departamento)
-
-        departamento = wait.until(EC.presence_of_element_located((By.ID, 'frmBuscar:busDepartamento_1')))
-        texto = departamento.text
-        print(texto)
-        MoverClick(driver,departamento)
-        
-        # Seleccionar una provincia en el filtro ("Bagua")
-        filtro_provincia = wait.until(EC.presence_of_element_located((By.ID, 'frmBuscar:busProvincia_label')))
-        MoverClick(driver,filtro_provincia)
-
-        provincia = wait.until(EC.presence_of_element_located((By.ID, 'frmBuscar:busProvincia_1')))
-        MoverClick(driver,provincia)
-        
-        # Seleccionar una provincia en el filtro ("Aramango")
-        filtro_distrito = wait.until(EC.presence_of_element_located((By.ID, 'frmBuscar:busDistrito_label')))
-        MoverClick(driver,filtro_distrito)
-
-        distrito = wait.until(EC.presence_of_element_located((By.ID, 'frmBuscar:busDistrito_1')))
-        MoverClick(driver,distrito)
-        
-        # Hacer click a la nada para actulizar
-        # click_actualizar= driver.find_element(By.TAG_NAME, 'body')
-        # click_actualizar.click()
-
-        time.sleep(5) #Detener por un tiempo
-        print("Elemento encontrado")
-        return 1
-    except ElementNotInteractableException:
-        print("El elemento no es interactivo o no está dentro del proceso")
-        pass
-        return 0
-    except TimeoutException:
-        print("El elemento no fue encontrado a tiempo")
-        pass
-        return 0
-    
-    except NoSuchElementException:
-        print("El elemento no fue encontrado en la página")
-        return 0
 
 def probar_ids(driver, ids):
     for id in ids:
@@ -248,16 +102,126 @@ def Ingresar_supervision(driver, wait, nueva=False):
             print("Se creará una nueva supervisión")
 
 
+#########################  ACCIONES MODULOS  #########################
+def validar_accion(diccionario_accion):
+    lista_keys = ["By","elemento_web","tipo"]
+    valido = list(diccionario_accion.keys()) == lista_keys
+    if valido:
+        return valido 
+    else:
+        print("No es un diccionario con acciones válidas")
+        return
+
+def click_send(driver, nombre_campo, ids_input , input):
+    id_input_valido = probar_ids(driver,ids_input)
+    if id_input_valido is None:
+        print(f"El ID del campo {nombre_campo } no fue encontrado")
+    else:    
+        id_input_valido.clear()
+        id_input_valido.send_keys(input)
+        click_vacio(driver)
+        print(f"Éxito: Enviar {input} al campo '{nombre_campo}'")
+
+def clean_send(driver, campo, valor_campo):
+        inicio = time.time()  
+        campo.clear()
+        campo.send_keys(valor_campo)
+        click_vacio(driver)
+        fin = time.time()
+        tiempo = fin - inicio
+        tiempo_formateado = "{:.{}f}".format(tiempo, 5)
+        print(f"Éxito: Se envió el '{valor_campo}' al campo '{campo}' en ({tiempo_formateado}) segundos")
+
+
+def validar_tipo(diccionario, tipo):
+    if diccionario["tipo"] !=tipo:
+        print(f"Elija un campo tipo {tipo}")
+        return
+    else:
+        pass
+
+
+def accion_send(driver, diccionario_campo, valor_campo):
+    try:
+        by = diccionario_campo["By"]
+        elemento_web = diccionario_campo["elemento_web"]
+        campo = driver.find_element(by,elemento_web)
+        clean_send(driver,campo, valor_campo)
+    except Exception as e:
+        print("Error en 'accion send': ",e)
+
+
+def elemento_presente(wait, elemento_web, By_name=By.ID):
+    try:
+        elemento=wait.until(EC.presence_of_element_located((By_name, elemento_web)))
+        return elemento, True
+    except:
+        return None, False
+
+def registrar_opciones(driver,wait, diccionario_campo):
+    try: 
+
+        opciones = {}
+
+        campo_web = diccionario_campo["elemento_web"]
+        by = diccionario_campo["By"]
+        campo_web.split("")
+
+        #Abrir el desplegable
+        filtro_campo = wait.until(EC.presence_of_element_located((by, campo_web)))
+        MoverClick(driver, filtro_campo)
+
+        #Input: frmPersona:txtColegio_label | Output: frmPersona:txtColegio_ (opcion formato)
+        string_eliminado = ["label"]
+        texto_cortado = campo_web.split("_")
+
+        opcion_formato= []
+        for i in texto_cortado:
+            if i not in string_eliminado:
+                opcion_formato.append(i)
+        opcion_formato = " ".join(opcion_formato)
+
+        #Input: frmPersona:txtColegio_ | Output: {"Texto 1":frmPersona:txtColegio_1, "Texto 2":frmPersona:txtColegio_2 ... "Texto 3": frmPersona:txtColegio_n} (Diccionario de opciones)
+        for i in range(50): # Máximo número de opciones a buscar dentro de un desplegable
+
+            opcion_web = opcion_formato+str(i)
+            opcion, validar_opcion = elemento_presente(wait, opcion_web, By_name=by)
+
+            if validar_opcion:
+                opciones[opcion.text] = {"By":by,"elemento_web":opcion_web,"tipo":"click"}
+            else:
+                print("No se encontraron más opciones")
+                break
+
+        return opciones
+
+    except Exception as e:
+        print("Error en 'registrar opciones': ",e)
+
+
+def accion_choose(driver, wait, diccionario_campo, valor_opcion=1):
+    try:
+        validar_tipo(diccionario_campo,"choose")
+        by = diccionario_campo["By"]
+        elemento_web = diccionario_campo["elemento_web"]
+        if by == "XPATH":
+            campo = driver.find_element(By.XPATH,elemento_web)
+            clean_send(driver,campo, valor_opcion)
+
+        elif by == "ID":
+            campo = driver.find_element(By.ID,elemento_web)
+            clean_send(driver,campo, valor_opcion)
+
+        else:
+            print(f"No está registrado el tipo de By.{by} en la funcion accion_send") 
+
+    except Exception as e:
+        print("Error en 'accion choose': ",e)
+
+######################################################################
 
 def Prueba():
-    driver = webdriver.Chrome()
-    wait = WebDriverWait(driver, 15)
-    Ingresar_Sistema(driver=driver,wait=wait)
-    cont=0
-    cont+=Prueba_0(driver=driver,wait=wait)
-    print("Número de pruebas exitosas: ",cont)
-    driver.implicitly_wait(5)
-    driver.quit()
+    pass
 
 
 

@@ -1,4 +1,4 @@
-
+from selenium.webdriver.common.by import By
 
 def diccionarios_SisDNA(nombre_diccionario="modulos"):
     # navegacion_SisDNA[nombre_modulo][url]-> direccion modulo
@@ -64,163 +64,163 @@ def diccionarios_SisDNA(nombre_diccionario="modulos"):
 def diccionarios_DNA(nombre_ventana):
     diccionario_ventanas={"DNA":DNA,"REGISTRO DNA":REGISTRO_DNA, "ACTUALIZACION DNA":ACTUALIZACION_DNA, "INTEGRANTE DNA":INTEGRANTE_DNA}
     DNA={
-        "ingresar_datos":{"Código DNA":{"By":"ID",
+        "ingresar_datos":{"Código DNA":{"By":By.ID,
                               "elemento_web":"frmBuscar:txtCodigo",
                               "tipo":"send"},
-                "Estado DNA":{"By":"ID",
+                "Estado DNA":{"By":By.ID,
                               "elemento_web":"frmBuscar:txtEstadoBus_label",
                               "tipo":"choose"},
-                "Filtrar ubigeo":{"By":"ID",
+                "Filtrar ubigeo":{"By":By.ID,
                                   "elemento_web":{"departamento":"frmBuscar:busDepartamento_label", 
                                                   "provincia":"frmBuscar:busProvincia_label",
                                                   "distrito":"frmBuscar:busDistrito_label"},
                                   "tipo":"choose"}
                 },
-        "extraer_datos":{"Exportar DNA":{"By":"XPATH",
+        "extraer_datos":{"Exportar DNA":{"By":By.XPATH,
                                 "elemento_web":'//*[@id="formularioPrincipal1:j_idt179"]/ul/li[1]/a/span[1]',
                                 "tipo":"download"},
-                        "Exportar Defensores":{"By":"XPATH",
+                        "Exportar Defensores":{"By":By.XPATH,
                                 "elemento_web":'//*[@id="formularioPrincipal1:j_idt179"]/ul/li[2]/a/span[1]',
                                 "tipo":"download"}
                         },
-        "funcionales_DNA":{"Crear":{"By":"ID",
+        "funcionales_DNA":{"Crear":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal1:j_idt182',
                                 "tipo":"click"},
-                        "Editar":{"By":"ID",
+                        "Editar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal1:tablaDefensoria:{number_row}:j_idt185',
                                 "tipo":"click"},
-                        "Eliminar":{"By":"ID",
+                        "Eliminar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal1:tablaDefensoria:{number_row}:j_idt186',
                                 "tipo":"click"},
-                        "Ingresar Reporte":{"By":"ID",
+                        "Ingresar Reporte":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal1:btnOpciones',
                                 "tipo":"click"},
                         }
         }
     REGISTRO_DNA = {
-        "ingresar_datos":{"Tipo sede":{"By":"ID",
+        "ingresar_datos":{"Tipo sede":{"By":By.ID,
                               "elemento_web":"formREGISTRODNA:txtTipo_label",
                               "tipo":"choose"},
-                "Tipo DNA":{"By":"ID",
+                "Tipo DNA":{"By":By.ID,
                               "elemento_web":"formREGISTRODNA:txtOrigen_label",
                               "tipo":"choose"},
-                "Nombre entidad":{"By":"ID",
+                "Nombre entidad":{"By":By.ID,
                               "elemento_web":"formREGISTRODNA:txtEntidad",
                               "tipo":"send"},
-                "Nombre DNA":{"By":"ID",
+                "Nombre DNA":{"By":By.ID,
                               "elemento_web":"formREGISTRODNA:txtNombre",
                               "tipo":"send"},
-                "Filtrar ubigeo":{"By":"ID",
+                "Filtrar ubigeo":{"By":By.ID,
                                   "elemento_web":{"departamento":"formREGISTRODNA:txtDepartamento_label", 
                                                   "provincia":"formREGISTRODNA:txtProvincia_label",
                                                   "distrito":"formREGISTRODNA:txtDistrito_label"},
                                   "tipo":"choose"},
                 },
-        "funcionales_DNA":{"Guardar":{"By":"ID",
+        "funcionales_DNA":{"Guardar":{"By":By.ID,
                                 "elemento_web":'formREGISTRODNA:j_idt308',
                                 "tipo":"click"},
-                        "Cerrar":{"By":"ID",
+                        "Cerrar":{"By":By.ID,
                                 "elemento_web":'formREGISTRODNA:j_idt310',
                                 "tipo":"click"}
                         }
     }
 
     ACTUALIZACION_DNA= {
-        "ingresar_datos":{"Número ordenanza":{"By":"ID",
+        "ingresar_datos":{"Número ordenanza":{"By":By.ID,
                               "elemento_web":"formREGISTRODNA:txtTipo_label",
                               "tipo":"choose"},
-                "Fecha ordenanza":{"By":"ID",
+                "Fecha ordenanza":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtNroOrdenanza",
                               "tipo":"choose"},
-                "Direccion DNA":{"By":"ID",
+                "Direccion DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtDireccion",
                               "tipo":"send"},
-                "Correo contacto":{"By":"ID",
+                "Correo contacto":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtCorreo",
                               "tipo":"send"},
-                "Telefono":{"By":"ID",
+                "Telefono":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtTelefono",
                               "tipo":"send"},
-                "Jefatura DNA":{"By":"ID",
+                "Jefatura DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtGerencia",
                               "tipo":"send"},
-                "Atención DNA":{"By":"ID",
+                "Atención DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtDias",
                               "tipo":"send"},
-                "Fecha acreditacion":{"By":"ID",
+                "Fecha acreditacion":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtFecAcreditacion_input",
                               "tipo":"send"},
-                "Doc acreditacion":{"By":"ID",
+                "Doc acreditacion":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtResAcreditacion",
                               "tipo":"send"},
-                "Fecha supervision":{"By":"ID",
+                "Fecha supervision":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtFecSupervision_input",
                               "tipo":"send"},
-                "Estado DNA":{"By":"ID",
+                "Estado DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:selEstadoDna_label",
                               "tipo":"choose"},
-                "Observaciones":{"By":"ID",
+                "Observaciones":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtobservaciones",
                               "tipo":"send"}
                 },
-        "funcionales_DNA":{"Nuevo integrante DNA":{"By":"ID",
+        "funcionales_DNA":{"Nuevo integrante DNA":{"By":By.ID,
                                 "elemento_web":'frmNuevo:j_idt137',
                                 "tipo":"click"},
-                        "Editar integrante DNA":{"By":"ID",
+                        "Editar integrante DNA":{"By":By.ID,
                                 "elemento_web":'frmNuevo:tablaEquipo:{num_row}:j_idt140',
                                 "tipo":"click"},
-                        "Eliminar integrante DNA":{"By":"ID",
+                        "Eliminar integrante DNA":{"By":By.ID,
                                 "elemento_web":'frmNuevo:tablaEquipo:{num_row}:j_idt141',
                                 "tipo":"click"},
-                        "Guardar":{"By":"ID",
+                        "Guardar":{"By":By.ID,
                                 "elemento_web":'frmNuevo:j_idt153',
                                 "tipo":"click"}
                         }
     }
     INTEGRANTE_DNA = {
 
-        "ingresar_datos":{"Funcion responsable":{"By":"ID",
+        "ingresar_datos":{"Funcion responsable":{"By":By.ID,
                               "elemento_web":"frmPersona:nidFuncion_label",
                               "tipo":"choose"},
-                "DNI":{"By":"ID",
+                "DNI":{"By":By.ID,
                               "elemento_web":"frmPersona:documento",
                               "tipo":"send"},
-                "Edad":{"By":"ID",
+                "Edad":{"By":By.ID,
                               "elemento_web":"frmPersona:txtEdad_input",
                               "tipo":"send"},
-                "Telefono":{"By":"ID",
+                "Telefono":{"By":By.ID,
                               "elemento_web":"frmPersona:telefono",
                               "tipo":"send"},
-                "Correo":{"By":"ID",
+                "Correo":{"By":By.ID,
                               "elemento_web":"frmPersona:correo",
                               "tipo":"send"},
-                "Tipo de instrucción":{"By":"ID",
+                "Tipo de instrucción":{"By":By.ID,
                               "elemento_web":"frmPersona:txtTipoInstruccion",
                               "tipo":"send"},
-                "Sexo":{"By":"ID",
+                "Sexo":{"By":By.ID,
                               "elemento_web":"frmPersona:sexo_label",
                               "tipo":"choose"},                                                            
-                "Nivel de instrucción":{"By":"ID",
+                "Nivel de instrucción":{"By":By.ID,
                               "elemento_web":"frmPersona:txtInstruccion_label",
                               "tipo":"choose"},
-                "Profesión":{"By":"ID",
+                "Profesión":{"By":By.ID,
                               "elemento_web":"frmPersona:txtProfesion_label",
                               "tipo":"choose"},
-                "Colegio profesional":{"By":"ID",
+                "Colegio profesional":{"By":By.ID,
                               "elemento_web":"frmPersona:txtColegio_label",
                               "tipo":"choose"},
-                "Nro colegiatura":{"By":"ID",
+                "Nro colegiatura":{"By":By.ID,
                               "elemento_web":"frmPersona:txtColegiatura",
                               "tipo":"send"},
-                "Equipo interdisciplinar":{"By":"ID",
+                "Equipo interdisciplinar":{"By":By.ID,
                               "elemento_web":"frmPersona:txtColegiatura",
                               "tipo":"check"}
                 },
 
-        "funcionales_DNA":{"Guardar":{"By":"ID",
+        "funcionales_DNA":{"Guardar":{"By":By.ID,
                                 "elemento_web":'frmPersona:j_idt267',
                                 "tipo":"click"},
-                        "Cerrar":{"By":"ID",
+                        "Cerrar":{"By":By.ID,
                                 "elemento_web":'frmPersona:j_idt269',
                                 "tipo":"click"}
                         }
@@ -233,221 +233,221 @@ def diccionarios_ACREDITACION(nombre_ventana):
 
 
     ACREDITACION={
-        "ingresar_datos":{"Código DNA":{"By":"ID",
+        "ingresar_datos":{"Código DNA":{"By":By.ID,
                               "elemento_web":"frmBuscar:txtCodigo",
                               "tipo":"send"},
-                "Filtrar ubigeo":{"By":"ID",
+                "Filtrar ubigeo":{"By":By.ID,
                                   "elemento_web":{"departamento":"frmBuscar:busDepartamento", 
                                                   "provincia":"frmBuscar:busProvincia"},
                                   "tipo":"choose"},
-                "Fecha":{"By":"ID",
+                "Fecha":{"By":By.ID,
                               "elemento_web":"frmBuscar:busFechaIni_input",
                               "tipo":"send"},
-                "Estado DNA":{"By":"ID",
+                "Estado DNA":{"By":By.ID,
                               "elemento_web":"frmBuscar:txtEstadoBus",
                               "tipo":"choose"},
-                "Estado proceso":{"By":"ID",
+                "Estado proceso":{"By":By.ID,
                               "elemento_web":"frmBuscar:selFiltroAcre_label",
                               "tipo":"choose"},
-                "Subir PDF":{"By":"ID",
+                "Subir PDF":{"By":By.ID,
                               "elemento_web":"formularioPrincipal:tablaDocs:{num_row}:j_idt516",
                               "tipo":"upload"}                                                                                        
                 },
-        "extraer_datos":{"Descargar PDF":{"By":"ID",
+        "extraer_datos":{"Descargar PDF":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt515',
                                 "tipo":"download"},
-                        "Descargar PDF firmado":{"By":"ID",
+                        "Descargar PDF firmado":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt517',
                                 "tipo":"download"}
                         },
-        "funcionales_DNA":{"Crear":{"By":"ID",
+        "funcionales_DNA":{"Crear":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal:j_idt508',
                                 "tipo":"click"},
-                        "Editar":{"By":"ID",
+                        "Editar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt511',
                                 "tipo":"click"},
-                        "Evaluar":{"By":"ID",
+                        "Evaluar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt512',
                                 "tipo":"click"},                                
-                        "Eliminar":{"By":"ID",
+                        "Eliminar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt514',
                                 "tipo":"click"},
-                        "Subsanar":{"By":"ID",
+                        "Subsanar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal:tablaDocs:{num_row}:j_idt513',
                                 "tipo":"click"}
                         }
         }
     
     REGISTRO_ACREDITACION = {
-        "ingresar_datos":{"Fecha ingreso":{"By":"ID",
+        "ingresar_datos":{"Fecha ingreso":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtFechaIngresoMimp_input",
                               "tipo":"send"},
-                "Nro expediente":{"By":"ID",
+                "Nro expediente":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtNroExpediente",
                               "tipo":"send"}, 
-                "DNI autoridad":{"By":"ID",
+                "DNI autoridad":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtAutoridadDni",
                               "tipo":"send"},  
-                "Institucion autoridad":{"By":"ID",
+                "Institucion autoridad":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtAutoridadInstitucion",
                               "tipo":"send"},  
-                "Cargo autoridad":{"By":"ID",
+                "Cargo autoridad":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtAutoridadCargo",
                               "tipo":"send"},  
-                "Código DNA":{"By":"ID",
+                "Código DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt86",
                               "tipo":"send"},  
-                "Nro Ordenanza":{"By":"ID",
+                "Nro Ordenanza":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtNroOrdenanza",
                               "tipo":"send"},
-                "Fecha Ordenanza":{"By":"ID",
+                "Fecha Ordenanza":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtFecOrdenanza_input",
                               "tipo":"send"},                                  
-                "Direccion DNA":{"By":"ID",
+                "Direccion DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtDireccion",
                               "tipo":"send"},  
-                "Correo DNA":{"By":"ID",
+                "Correo DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtCorreo",
                               "tipo":"send"},
-                "Teléfono DNA":{"By":"ID",
+                "Teléfono DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtTelefono",
                               "tipo":"send"},
-                "Jefatura DNA":{"By":"ID",
+                "Jefatura DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtGerencia",
                               "tipo":"send"},
-                "Atención DNA":{"By":"ID",
+                "Atención DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtDias",
                               "tipo":"send"},
-                "Presupuesto DNA":{"By":"ID",
+                "Presupuesto DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtPresupuesto_input",
                               "tipo":"send"},
-                "Nro Ambientes DNA":{"By":"ID",
+                "Nro Ambientes DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtAmbientes_input",
                               "tipo":"send"},
-                "Nro Ambientes audiencias DNA":{"By":"ID",
+                "Nro Ambientes audiencias DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtAmbientesPrivadas_input",
                               "tipo":"send"},
 
-                "Nro Ambientes audiencias DNA":{"By":"ID",
+                "Nro Ambientes audiencias DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtAmbientesPrivadas_input",
                               "tipo":"send"},
 
-                "Nro Ambientes audiencias DNA":{"By":"ID",
+                "Nro Ambientes audiencias DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtAmbientesPrivadas_input",
                               "tipo":"send"},
 
-                "Tiene ambiente privado":{"By":"ID",
+                "Tiene ambiente privado":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt126",
                               "tipo":"check"},
 
-                "Tiene equipo de computo":{"By":"ID",
+                "Tiene equipo de computo":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt129",
                               "tipo":"check"},
 
-                "Tiene impresora":{"By":"ID",
+                "Tiene impresora":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt131",
                               "tipo":"check"},
 
-                "Tiene internet":{"By":"ID",
+                "Tiene internet":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt133",
                               "tipo":"check"},
 
-                "Ambiente seguro documentos":{"By":"ID",
+                "Ambiente seguro documentos":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt135",
                               "tipo":"check"},
 
-                "Accesible NNA y discapacitados":{"By":"ID",
+                "Accesible NNA y discapacitados":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt137",
                               "tipo":"check"},
 
-                "Tiene espacio de espera":{"By":"ID",
+                "Tiene espacio de espera":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt139",
                                 "tipo":"check"},
 
-                "Estado conservacion":{"By":"ID",
+                "Estado conservacion":{"By":By.ID,
                               "elemento_web":"frmNuevo:txtEstadoCons:{n_state}",
                               "tipo":"check options"},                     
 
-                "DJ solicitar acreditación":{"By":"ID",
+                "DJ solicitar acreditación":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt167_input",
                               "tipo":"upload"},
 
-                "DJ integrantes DNA":{"By":"ID",
+                "DJ integrantes DNA":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt173_input",
                               "tipo":"upload"},
 
-                "Ordenanza municipal":{"By":"ID",
+                "Ordenanza municipal":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt179_input",
                               "tipo":"upload"},
 
-                "Resolución de alcaldía":{"By":"ID",
+                "Resolución de alcaldía":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt185_input",
                               "tipo":"upload"},
 
-                "Documentos integrados":{"By":"ID",
+                "Documentos integrados":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt191_input",
                               "tipo":"upload"},
 
-                "Oficio de solicitud de acreditación":{"By":"ID",
+                "Oficio de solicitud de acreditación":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt197_input",
                               "tipo":"upload"},
 
-                "Otros documentos":{"By":"ID",
+                "Otros documentos":{"By":By.ID,
                               "elemento_web":"frmNuevo:j_idt203_input",
                               "tipo":"upload"},
                 },
 
-        "funcionales_DNA":{"Guardar":{"By":"ID",
+        "funcionales_DNA":{"Guardar":{"By":By.ID,
                                 "elemento_web":'frmNuevo:j_idt474',
                                 "tipo":"click"},
-                        "Registrar integrante":{"By":"ID",
+                        "Registrar integrante":{"By":By.ID,
                                 "elemento_web":'frmNuevo:j_idt147',
                                 "tipo":"click"}
                         }
     },
 
     INTEGRANTE_DNA = {
-        "ingresar_datos":{"Funcion responsable":{"By":"ID",
+        "ingresar_datos":{"Funcion responsable":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:nidFuncion_label",
                               "tipo":"choose"},
-                "DNI":{"By":"ID",
+                "DNI":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:documento",
                               "tipo":"send"},
-                "Edad":{"By":"ID",
+                "Edad":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:txtEdad_input",
                               "tipo":"send"},
-                "Telefono":{"By":"ID",
+                "Telefono":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:telefono",
                               "tipo":"send"},
-                "Correo":{"By":"ID",
+                "Correo":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:correo",
                               "tipo":"send"},
-                "Tipo de instrucción":{"By":"ID",
+                "Tipo de instrucción":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:txtTipoInstruccion_label",
                               "tipo":"send"},
-                "Sexo":{"By":"ID",
+                "Sexo":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:sexo_label",
                               "tipo":"choose"},                                                            
-                "Nivel de instrucción":{"By":"ID",
+                "Nivel de instrucción":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:txtInstruccion_label",
                               "tipo":"choose"},
-                "Profesión":{"By":"ID",
+                "Profesión":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:txtProfesion_label",
                               "tipo":"choose"},
-                "Colegio profesional":{"By":"ID",
+                "Colegio profesional":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:txtColegio_label",
                               "tipo":"choose"},
-                "Nro colegiatura":{"By":"ID",
+                "Nro colegiatura":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:txtColegiatura",
                               "tipo":"send"},
-                "Equipo interdisciplinar":{"By":"ID",
+                "Equipo interdisciplinar":{"By":By.ID,
                               "elemento_web":"modalNuevoEquipo:j_idt541_input",
                               "tipo":"check"}
                 },
-        "funcionales_DNA":{"Guardar":{"By":"ID",
+        "funcionales_DNA":{"Guardar":{"By":By.ID,
                                 "elemento_web":'modalNuevoEquipo:j_idt625',
                                 "tipo":"click"},
-                        "Cerrar":{"By":"ID",
+                        "Cerrar":{"By":By.ID,
                                 "elemento_web":'modalNuevoEquipo:j_idt627',
                                 "tipo":"click"}
                         }
@@ -463,61 +463,61 @@ def diccionarios_SUPERVISION(nombre_ventana):
     diccionario_ventanas={"SUPERVISIÓN":SUPERVISION,
                           "REGISTRO SUPERVISIÓN":REGISTRO_SUPERVISION}
     SUPERVISION={
-        "ingresar_datos":{"Código DNA":{"By":"ID",
+        "ingresar_datos":{"Código DNA":{"By":By.ID,
                               "elemento_web":"frmBuscar:busCodigo",
                               "tipo":"send"},
 
-                "Fecha desde":{"By":"ID",
+                "Fecha desde":{"By":By.ID,
                               "elemento_web":"frmBuscar:j_idt331_input",
                               "tipo":"send"},
 
-                "Fecha hasta":{"By":"ID",
+                "Fecha hasta":{"By":By.ID,
                               "elemento_web":"frmBuscar:j_idt336_input",
                               "tipo":"send"},
 
-                "Estado supervisado":{"By":"ID",
+                "Estado supervisado":{"By":By.ID,
                               "elemento_web":"frmBuscar:selFiltro_label",
                               "tipo":"choose"},
 
-                "Estado proceso":{"By":"ID",
+                "Estado proceso":{"By":By.ID,
                               "elemento_web":"frmBuscar:busEstado_label",
                               "tipo":"choose"},
 
-                "Seleccionar supervisor":{"By":"ID",
+                "Seleccionar supervisor":{"By":By.ID,
                                           "elemento_web":"frmBuscar:selSupervisor_label",
                                           "tipo":"choose"},
 
-                "Seleccionar supervisor":{"By":"ID",
+                "Seleccionar supervisor":{"By":By.ID,
                                           "elemento_web":"frmBuscar:selSupervisor_label",
                                           "tipo":"choose"},
 
 
-                "Seleccionar supervisor":{"By":"ID",
+                "Seleccionar supervisor":{"By":By.ID,
                                           "elemento_web":"frmBuscar:selSupervisor_label",
                                           "tipo":"choose"},
 
-                "Filtrar ubigeo":{"By":"ID",
+                "Filtrar ubigeo":{"By":By.ID,
                                   "elemento_web":{"departamento":"frmBuscar:busDepartamento_label", 
                                                   "provincia":"frmBuscar:busProvincia_label",
                                                   "distrito":"frmBuscar:busDistrito_label"},
                                   "tipo":"choose"}
 
                 },
-        "funcionales_DNA":{"Crear":{"By":"ID",
+        "funcionales_DNA":{"Crear":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal1:tablaSup:{n_DNA_row}:j_idt365',
                                 "tipo":"click"},
-                        "Editar":{"By":"ID",
+                        "Editar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal1:tablaSup:{n_DNA_row}:tablaSup:{n_supervision_row}:j_idt369',
                                 "tipo":"click"},
 
-                        "Enviar":{"By":"ID",
+                        "Enviar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal1:tablaSup:{n_DNA_row}:tablaSup:{n_supervision_row}:j_idt370',
                                 "tipo":"click"},
 
-                        "Eliminar":{"By":"ID",
+                        "Eliminar":{"By":By.ID,
                                 "elemento_web":'formularioPrincipal1:tablaSup:{n_DNA_row}:tablaSup:{n_supervision_row}:j_idt371',
                                 "tipo":"click"},
-                        "Ingresar supervisiones ":{"By":"XPATH",
+                        "Ingresar supervisiones ":{"By":By.XPATH,
                                 "elemento_web":'//*[@id="formularioPrincipal1:tablaSup_data"]/tr[{n_row}]/td[1]/div',
                                 "tipo":"click"},
                         }
@@ -525,359 +525,359 @@ def diccionarios_SUPERVISION(nombre_ventana):
     
     num_preguntas = 84
     respecto_lista=["la entidad Responsable","la DNA y sus integrantes","los expedientes de atención de casos"]
-    preguntas_xpath = {f"Pregunta {i}": {"By":"XPATH",
+    preguntas_xpath = {f"Pregunta {i}": {"By":By.XPATH,
                                          "elemento_web": f'//*[@id="frmNuevo:j_idt233:{i-1}:j_idt235/tbody/tr/td[n_option]/div/div[2]"]' ,
                                          "tipo":"check options"} for i in range(1, num_preguntas + 1)}
     
     REGISTRO_SUPERVISION ={
 
-        "ingresar_datos":{"Fecha":{"By":"ID",
+        "ingresar_datos":{"Fecha":{"By":By.ID,
                                 "elemento_web":"frmNuevo:txtFecha_input",
                                 "tipo":"send"},
 
-                        "Hora":{"By":"ID",
+                        "Hora":{"By":By.ID,
                                 "elemento_web":"frmNuevo:txtHora_input",
                                 "tipo":"send"},
 
-                        "Supervisor":{"By":"ID",
+                        "Supervisor":{"By":By.ID,
                                 "elemento_web":"frmNuevo:selSupervisor_label",
                                 "tipo":"choose"},
 
-                        "Teléfono DNA":{"By":"ID",
+                        "Teléfono DNA":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt92",
                                 "tipo":"send"},
 
-                        "Correo DNA":{"By":"ID",
+                        "Correo DNA":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt95",
                                 "tipo":"send"},
 
-                        "Horario DNA":{"By":"ID",
+                        "Horario DNA":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt92",
                                 "tipo":"send"},
 
 
-                        "DNI Responsable":{"By":"ID",
+                        "DNI Responsable":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt92",
                                 "tipo":"send"},
 
-                        "Fecha Responsable":{"By":"ID",
+                        "Fecha Responsable":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt95",
                                 "tipo":"send"},
 
-                        "Documento Responsable":{"By":"ID",
+                        "Documento Responsable":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt92",
                                 "tipo":"send"},
 
 
-                        "Teléfono Responsable":{"By":"ID",
+                        "Teléfono Responsable":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt95",
                                 "tipo":"send"},
 
-                        "Correo Responsable":{"By":"ID",
+                        "Correo Responsable":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt92",
                                 "tipo":"send"},
 
 
-                        "Instruccion Responsable":{"By":"ID",
+                        "Instruccion Responsable":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt92",
                                 "tipo":"choose"},
 
-                        "Profesion Responsable":{"By":"ID",
+                        "Profesion Responsable":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt95",
                                 "tipo":"choose"},
 
-                        "Colegio Responsable":{"By":"ID",
+                        "Colegio Responsable":{"By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt92",
                                 "tipo":"choose"},
 
 
-                        "Max autoridad Responsable":{"By":"ID",
+                        "Max autoridad Responsable":{"By":By.ID,
                                 "elemento_web":"frmBuscar:busEstado_label",
                                 "tipo":"choose"},
 
-                        "Direccion entidad Responsable":{"By":"ID",
+                        "Direccion entidad Responsable":{"By":By.ID,
                                                 "elemento_web":"frmBuscar:selSupervisor_label",
                                                 "tipo":"choose"},
 
-                        "Local DNA":{"By":"ID",
+                        "Local DNA":{"By":By.ID,
                                                 "elemento_web":"frmBuscar:selSupervisor_label",
                                                 "tipo":"choose"},
 
-                        "Conservacion DNA":{"By":"ID",
+                        "Conservacion DNA":{"By":By.ID,
                                                 "elemento_web":"frmBuscar:selSupervisor_label",
                                                 "tipo":"choose"},
 
 
-                        "N° ambientes":{"By":"ID",
+                        "N° ambientes":{"By":By.ID,
                                         "elemento_web":"frmBuscar:selSupervisor_label",
                                         "tipo":"choose"},
 
                         "Matriz RRHH":{
                             
                             "Nro Defensor Derecho M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt191_input",
                                 "tipo":"send"
                             },
                             "Nro Defensor Derecho H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt193_input",
                                 "tipo":"send"
 
                             },                                
 
                             "Nro Defensor T. Social M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt195_input",
                                 "tipo":"send"
                             },
 
                             "Nro Defensor T. Social H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt197_input",
                                 "tipo":"send"
                             },   
 
                             "Nro Defensor Psicologia M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt199_input",
                                 "tipo":"send"
                             },
 
                             "Nro Defensor Psicologia H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt201_input",
                                 "tipo":"send"
                             },   
 
                             "Nro Defensor Eduacion M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt203_input",
                                 "tipo":"send"
                             },
 
                             "Nro Defensor Eduacion H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt205_input",
                                 "tipo":"send"
                             },
 
                             "Nro Defensor Otro M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt207_input",
                                 "tipo":"send"
                             },   
 
                             "Nro Defensor Otro H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:1:j_idt209_input",
                                 "tipo":"send"
                             },
 
                             "Nro Promotor Derecho M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt191_input",
                                 "tipo":"send"
                             },   
 
                             "Nro Promotor Derecho H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt193_input",
                                 "tipo":"send"
                             },
 
                             "Nro Promotor T. Social M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt195_input",
                                 "tipo":"send"
                             }, 
 
                             "Nro Promotor T. Social H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt197_input",
                                 "tipo":"send"
                             },
 
                             "Nro Promotor Psicologia M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt199_input",
                                 "tipo":"send"
                             },   
 
                             "Nro Promotor Psicologia H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt201_input",
                                 "tipo":"send"
                             },
 
                             "Nro Promotor Eduacion M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt203_input",
                                 "tipo":"send"
                             },   
 
                             "Nro Promotor Eduacion H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt205_input",
                                 "tipo":"send"
                             },
 
                             "Nro Promotor Otro M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt207_input",
                                 "tipo":"send"
                             }, 
 
                             "Nro Promotor Otro H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:2:j_idt209_input",
                                 "tipo":"send"
                             }, 
 
                             "Nro P. Apoyo Derecho M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt191_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Apoyo Derecho M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt193_input",
                                 "tipo":"send"
                             },   
 
                             "Nro P. Apoyo T. Social M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt195_input",
                                 "tipo":"send"
                             },   
 
                             "Nro P. Apoyo T. Social H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt197_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Apoyo Psicologia M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt199_input",
                                 "tipo":"send"
                             }, 
 
 
                             "Nro P. Apoyo Psicologia H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt201_input",
                                 "tipo":"send"
                             },   
 
                             "Nro P. Apoyo Eduacion M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt203_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Apoyo Eduacion H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt205_input",
                                 "tipo":"send"
                             }, 
 
 
                             "Nro P. Apoyo Otro M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt207_input",
                                 "tipo":"send"
                             }, 
 
                             "Nro P. Apoyo Otro H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:3:j_idt209_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Administrativo Derecho M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt191_input",
                                 "tipo":"send"
                             },   
 
                             "Nro P. Administrativo Derecho H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt193_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Administrativo T. Social M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt195_input",
                                 "tipo":"send"
                             },   
 
                             "Nro P. Administrativo T. Social H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt197_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Administrativo Psicologia M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt199_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Administrativo Psicologia H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt201_input",
                                 "tipo":"send"
                             },   
 
                             "Nro P. Administrativo Eduacion M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt203_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Administrativo Eduacion H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt205_input",
                                 "tipo":"send"
                             },   
 
                             "Nro P. Administrativo Otro M":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt207_input",
                                 "tipo":"send"
                             },
 
                             "Nro P. Administrativo Otro H":{
-                                "By":"ID",
+                                "By":By.ID,
                                 "elemento_web":"frmNuevo:j_idt162:4:j_idt209_input",
                                 "tipo":"send"
                             }  
                         },
 
-                        "Actividades ejecutadas":{"By":"ID",
+                        "Actividades ejecutadas":{"By":By.ID,
                                         "elemento_web":"frmNuevo:txtActividades",
                                         "tipo":"send"},
 
-                        "Actividades ejecutadas":{"By":"ID",
+                        "Actividades ejecutadas":{"By":By.ID,
                                         "elemento_web":"frmNuevo:txtActividades",
                                         "tipo":"send"},
 
-                        "COMUDENA":{"By":"XPATH",
+                        "COMUDENA":{"By":By.XPATH,
                                         "elemento_web":"//*[@id='frmNuevo:rbComudena']/tbody/tr/td[{id_option}]/div/div[2]",
                                         "tipo":"check options"},
 
-                        "COORDINADORA":{"By":"XPATH",
+                        "COORDINADORA":{"By":By.XPATH,
                                         "elemento_web":"//*[@id='frmNuevo:rbCoord']/tbody/tr/td[{id_option}]/div/div[2]",
                                         "tipo":"check options"},
 
-                        "Actividades ejecutadas":{"By":"ID",
+                        "Actividades ejecutadas":{"By":By.ID,
                                         "elemento_web":"frmNuevo:txtActividades",
                                         "tipo":"send"},
 
-                        "Otros espacios":{"By":"ID",
+                        "Otros espacios":{"By":By.ID,
                                         "elemento_web":"frmNuevo:txtCoordinadora",
                                         "tipo":"send"},
 
