@@ -8,11 +8,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from ..acciones import acciones_movimiento
+from acciones.acciones_movimiento import Ingresar_Sistema
 
 
 def Proof(driver,wait):
-    acciones_movimiento.Ingresar_Sistema(driver,wait)
+    Ingresar_Sistema(driver,wait)
     driver.quit()
 
 
