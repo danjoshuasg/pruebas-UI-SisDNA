@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from acciones.acciones_movimiento import Ingresar_Sistema
 
-
+# llamando  a ingresar sistema
 def Proof(driver,wait):
     Ingresar_Sistema(driver,wait)
     driver.quit()
