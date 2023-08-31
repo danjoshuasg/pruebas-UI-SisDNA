@@ -891,11 +891,14 @@ def diccionarios_SUPERVISION(nombre_ventana):
         }
     return diccionario_ventanas[nombre_ventana]
 
+def diccionarios_CAPACITACION(etapa_capacitacion):
+    pass
+
 def diccionarios_SEGURIDAD(etapa_capacitacion):
-    print("Diccionario de campos DNA")
+    pass
 
 def diccionarios_MANTENIMIENTO(etapa_capacitacion):
-    print("Diccionario de campos DNA")
+    pass
 
 
 if __name__ == "__main__":
