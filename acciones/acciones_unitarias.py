@@ -168,11 +168,20 @@ def registrar_opciones(driver,wait, diccionario_atributos):
     try: 
 
         opciones = {}
+        print("Aqui error 1")
         campo_web = diccionario_atributos["elemento_web"]
+        print("Aqui error 2")
         by = diccionario_atributos["By"]
+        print("Aqui error 3")
+        #Abrir el desplegable
+        filtro_campo = wait.until(EC.presence_of_element_located((by, campo_web)))
+        MoverClick(driver, filtro_campo)
+        time.sleep(2)
+        print("Aqui error 4")
 
         #Input: frmPersona:txtColegio_label | Output: frmPersona:txtColegio_ (opcion formato)
         string_eliminado = ["label"]
+        print("Aqui error 5")
         texto_cortado = campo_web.split("_")
 
         opcion_formato= []
@@ -181,9 +190,7 @@ def registrar_opciones(driver,wait, diccionario_atributos):
                 opcion_formato.append(i)
         opcion_formato = " ".join(opcion_formato)
         print("Formato: ",opcion_formato)
-        #Abrir el desplegable
-        filtro_campo = wait.until(EC.presence_of_element_located((by, campo_web)))
-        MoverClick(driver, filtro_campo)
+
 
         #Input: frmPersona:txtColegio_ | Output: {"Texto 1":frmPersona:txtColegio_1, "Texto 2":frmPersona:txtColegio_2 ... "Texto 3": frmPersona:txtColegio_n} (Diccionario de opciones)
         c=0
@@ -302,15 +309,54 @@ def acciones_ingresar_datos(driver,campo,diccionario_atributos,valor_ingresar):
     else:
         print("No se encuentra el 'tipo'")
 
-
-def acciones_funcionales(driver, campo, diccionario_atributos):
+def acciones_extraer_datos(driver,campo,diccionario_atributos,direccion_guardar =""):
     try:
         inicio = time.time()
         by = diccionario_atributos["By"]
         elemento_nombre = diccionario_atributos["elemento_web"]
         tipo=diccionario_atributos["tipo"]
-        elemento = driver.find_element(by,elemento_nombre)
-        MoverClick(driver,elemento)
+        if by == By.XPATH:
+            nombre_elemento_condicional = "//*[@id='formularioPrincipal1:btnOpciones']"
+            elemento_codicional = driver.find_element(by,nombre_elemento_condicional) #Antes de hacerle click a los desplegables 
+            MoverClick(driver,elemento_codicional)
+            time.sleep(5)
+            elemento_extraer = driver.find_element(by,elemento_nombre)
+            MoverClick(driver,elemento_extraer)
+            time.sleep(5)
+        elif by == By.ID:
+            # Aquí se debe filtrar
+            pass
+        else:
+            print("No se encuentra registrado el tipo de elemento para extraer, elegir entre XPATH o ID")
+
+        fin = time.time()
+        tiempo = fin - inicio
+        tiempo_formateado = "{:.{}f}".format(tiempo, 5)
+        print(f"Éxito: funcionó el '{tipo}' en el elemento '{campo}' en ({tiempo_formateado}) segundos")
+        
+    except Exception as e:
+        print("Error en extracción de datos:",e)
+
+    pass
+
+def acciones_funcionales(driver, campo, diccionario_atributos):
+    try:
+        requiere_filtrado = False
+        inicio = time.time()
+        if campo == "Crear":
+            if requiere_filtrado:
+                pass
+            else:
+                by = diccionario_atributos["By"]
+                elemento_nombre = diccionario_atributos["elemento_web"]
+                tipo=diccionario_atributos["tipo"]
+                elemento = driver.find_element(by,elemento_nombre)
+                MoverClick(driver,elemento)
+                time.sleep(3)
+        elif campo == "Filtrar":
+            pass
+        else:
+            pass 
         fin = time.time()
         tiempo = fin - inicio
         tiempo_formateado = "{:.{}f}".format(tiempo, 5)
@@ -320,13 +366,15 @@ def acciones_funcionales(driver, campo, diccionario_atributos):
 
 
 
+
 ######################################################################
 
 def Prueba(driver,wait):
     modulo = "dna"
     submodulo = "dna"
-    # acciones_movimiento.Ingresar_Sistema(driver,wait)
-    # acciones_movimiento.Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre=modulo,submodulo_nombre=submodulo)
+
+    acciones_movimiento.Ingresar_Sistema(driver,wait)
+    acciones_movimiento.Ingresar_Modulo_Submodulo(driver,wait,modulo_nombre=modulo,submodulo_nombre=submodulo)
 
     # Se tiene el diccionario de modulos
     diccionario_submodulo = {"dna":diccionarios_SisDNA.diccionarios_DNA,
@@ -342,17 +390,19 @@ def Prueba(driver,wait):
     print(lista_ventanas)
 
     # Se elije la ventana y se piden las operaciones que se pueden hacer en las ventanas como lista
+
     ventana = lista_ventanas[0] #Para filtrar
     print("Se eligió ventana: ",ventana)
+
+    # Se debe elegir el diccionario de operaciones según el submódulo según la ventana
     diccionario_operaciones = diccionario_submodulo[submodulo](ventana)
     lista_operaciones = list(diccionario_operaciones.keys())
-
     print(lista_operaciones)
 
-    # # Se elije la operación y se piden los campos como lista
-    # operacion = lista_operaciones[0]
-    # print("Se eligió campo: ",operacion)
-    # diccionario_campos = diccionario_operaciones[operacion]
+    # Se elije la operación y se piden los campos como lista
+    operacion = lista_operaciones[0]
+    print("Se eligió campo: ",operacion)
+    diccionario_campos = diccionario_operaciones[operacion]
 
     # lista_campos = list(diccionario_campos.keys())
     
@@ -360,13 +410,14 @@ def Prueba(driver,wait):
     # campo = lista_campos[0]
     # print("Se eligió campo: ",campo)
     # diccionario_atributos = diccionario_campos[campo] #(Por defecto todos, sino mostrar los nombres de los campos)
-    # acciones_ingresar_datos(driver, campo, diccionario_atributos, "01001")
+    # acciones_ingresar_datos(driver, campo, diccionario_atributos, "01001") ################################## OK ########################################
 
-    # # Se elie el campo y se piden los atributos del campo en una lista
-    # campo = lista_campos[1]
-    # print("Se eligió campo: ",campo)
-    # diccionario_atributos = diccionario_campos[campo] #(Por defecto todos, sino mostrar los nombres de los campos)
-    # acciones_ingresar_datos(driver, campo, diccionario_atributos, 1)
+    # Se elie el campo y se piden los atributos del campo en una lista
+    lista_campos = list(diccionario_campos.keys())
+    campo = lista_campos[1]
+    print("Se eligió campo: ",campo)
+    diccionario_atributos = diccionario_campos[campo] #(Por defecto todos, sino mostrar los nombres de los campos)
+    acciones_ingresar_datos(driver, campo, diccionario_atributos, 1) ################################## OK ########################################
 
     # # Se elie el campo y se piden los atributos del campo en una lista
     # campo = lista_campos[2]
@@ -375,16 +426,22 @@ def Prueba(driver,wait):
 
     # acciones_ingresar_datos(driver, campo, diccionario_atributos, {'departamento':'AMAZONAS'})
     # acciones_ingresar_datos(driver, campo, diccionario_atributos, {'provincia':'BONGARA'})
-    # acciones_ingresar_datos(driver, campo, diccionario_atributos, {'distrito':'COROSHA'})
+    # acciones_ingresar_datos(driver, campo, diccionario_atributos, {'distrito':'COROSHA'}) ################################## OK ########################################
 
-    # Se elije la operación y se piden los campos como lista
-    ################# EXTRAER DATOS (1) #################################
-    operacion = lista_operaciones[1]
-    print("Se eligió operacion: ",operacion)
-    diccionario_campos = diccionario_operaciones[operacion]
-    lista_campos = list(diccionario_campos.keys())
-    campo = lista_campos[0]
-    print("Se eligió campo: ",campo)
+    # # Se elije la operación y se piden los campos como lista
+    # ################# EXTRAER DATOS (1) #################################
+    # operacion = lista_operaciones[1]
+    # print("Se eligió operacion: ",operacion)
+    # diccionario_campos = diccionario_operaciones[operacion]
+
+
+    # ################# CAMPO PARA EXTRAER (1) #################################
+    # lista_campos = list(diccionario_campos.keys()) #Se tiene la lista de campos que hacen la operacion en la ventana determinada
+    # campo = lista_campos[0] #Se elige el campo del que se desea extraer
+
+    # print(f"Se eligió campo {campo} para {operacion}")
+    # diccionario_atributos = diccionario_campos[campo] 
+    # acciones_extraer_datos(driver, campo, diccionario_atributos) ################################## OK ########################################
 
 
     ################# FUNCIONALES (2) #################################
@@ -392,16 +449,48 @@ def Prueba(driver,wait):
     print("Se eligió operacion: ",operacion)
     diccionario_campos = diccionario_operaciones[operacion]
     lista_campos = list(diccionario_campos.keys())
-    ################# Crear (0) #################################
-    campo = lista_campos[0]
+    ################# Crear (0) ################################# INGRESA A OTRA VENTANA
 
+    campo = lista_campos[0]
+    print(f"Se eligió campo {campo} para {operacion} en la ventana {ventana}")
+    diccionario_atributos = diccionario_campos[campo] 
+    acciones_funcionales(driver, campo, diccionario_atributos)
+
+    # Abrir otro diccionario de la ventana
+
+    ventana = lista_ventanas[1] #Para crear nueva DNA
+    print("Se eligió ventana: ",ventana)
+    diccionario_operaciones = diccionario_submodulo[submodulo](ventana)
+    lista_operaciones = list(diccionario_operaciones.keys())
+
+    # Se eligen "INGRESAR DATOS (1)" de la lista de operaciones
+    operacion = lista_operaciones[0]
+    print("Se eligió operacion: ",operacion)
+    diccionario_campos = diccionario_operaciones[operacion]
+
+    # Se elige "CAMPO (1)" de la lista de operaciones
+    lista_campos = list(diccionario_campos.keys())
+
+    campo = lista_campos[0]
     print("Se eligió campo: ",campo)
     diccionario_atributos = diccionario_campos[campo] #(Por defecto todos, sino mostrar los nombres de los campos)
     print(diccionario_atributos)
+    acciones_ingresar_datos(driver, campo, diccionario_atributos,1) ################################## OK ########################################
+
+    campo = lista_campos[1]
+    print("Se eligió campo: ",campo)
+    diccionario_atributos = diccionario_campos[campo] #(Por defecto todos, sino mostrar los nombres de los campos)
+    print(diccionario_atributos)
+    acciones_ingresar_datos(driver, campo, diccionario_atributos,1) ################################## OK ########################################
 
 
+    campo = lista_campos[2]
+    print("Se eligió campo: ",campo)
+    diccionario_atributos = diccionario_campos[campo] #(Por defecto todos, sino mostrar los nombres de los campos)
+    print(diccionario_atributos)
+    acciones_ingresar_datos(driver, campo, diccionario_atributos,1) ################################## OK ########################################
+    
 
-    # acciones_movimiento.Salir_Sistema(driver)
 
     # acciones_movimiento.Salir_Sistema(driver)
 
@@ -409,3 +498,4 @@ if __name__ == "__main__":
     driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 15)
     Prueba(driver,wait)
+    driver.quit()
